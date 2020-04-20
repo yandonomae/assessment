@@ -73,7 +73,7 @@ const answers=[
 /**
  * 名前の文字列を渡すと診断結果を返す関数
  * @param {string} userName ユーザーの名前
- * @return {string} 診断結果
+ * @return {string} 診断結果d
  */
 function assessment(userName){
     // 全文字のコード番号を取得してそれを足し合わせる
