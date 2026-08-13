@@ -292,6 +292,5 @@ document.addEventListener('keydown', (event) => {
 const observer = new MutationObserver(() => {
   applyEnhancements();
   schedulePresenceSync();
-  if (watchedPlayerId) renderWatch();
 });
 observer.observe(document.documentElement, { childList: true, subtree: true, attributes: true, attributeFilter: ['class'] });
