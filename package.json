@@ -1,0 +1,7 @@
+{
+  "name": "assessment-monorepo",
+  "private": true,
+  "workspaces": [
+    "rewordle/discord-observer"
+  ]
+}
