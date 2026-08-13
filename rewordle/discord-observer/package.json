@@ -1,6 +1,6 @@
 {
   "name": "rewordle-discord-service",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "private": true,
   "type": "module",
   "description": "RE:WORDLE Discord Activity backend plus the temporary Discord observer tools.",
@@ -8,9 +8,9 @@
     "node": ">=22.12.0"
   },
   "scripts": {
-    "start": "node src/activity-server.js",
+    "start": "node src/activity-entry.js",
     "start:observer": "node src/index.js",
-    "check": "node --check src/activity-server.js && node --check src/index.js && node --test"
+    "check": "node --check src/activity-entry.js && node --check src/activity-server.js && node --check src/index.js && node --test"
   },
   "dependencies": {
     "discord.js": "^14.27.0",
