@@ -1,0 +1,56 @@
+.participant[data-watch-player] { cursor: pointer; transition: .14s ease; }
+.participant[data-watch-player]:hover { background: #2a2a2d; border-color: #777; }
+.participant[data-watch-player]:focus-visible { outline: 2px solid #fff; outline-offset: 2px; }
+
+.key.global-absent { box-shadow: inset 0 0 0 1px #1a1a1b; }
+.key.global-absent::before { content: ''; position: absolute; width: 5px; height: 5px; border-radius: 50%; background: #111; top: 4px; right: 4px; opacity: .9; }
+
+#live-watch-overlay { position: fixed; inset: 0; z-index: 1000; pointer-events: none; }
+.watch-backdrop { position: absolute; inset: 0; background: rgba(0,0,0,.72); backdrop-filter: blur(4px); display: grid; place-items: center; padding: 18px; pointer-events: auto; }
+.watch-modal { width: min(680px, 100%); max-height: min(88dvh, 820px); overflow: auto; overscroll-behavior: contain; background: #171719; border: 1px solid #3a3a3d; border-radius: 18px; box-shadow: 0 22px 80px rgba(0,0,0,.55); padding: 18px; position: relative; }
+.watch-close { position: sticky; float: right; top: 0; z-index: 2; width: 36px; height: 36px; border: 1px solid #444; border-radius: 50%; background: #262628; color: #fff; font-size: 24px; line-height: 1; }
+.watch-header { display: flex; align-items: center; gap: 12px; margin: 2px 42px 16px 0; }
+.watch-header h2 { margin: 1px 0 2px; font-size: 23px; }
+.watch-header p { margin: 0; color: #999; font-size: 11px; }
+.watch-avatar { width: 48px; height: 48px; border-radius: 50%; object-fit: cover; background: #303034; flex: none; }
+.watch-avatar.fallback { display: grid; place-items: center; font-size: 12px; font-weight: 900; }
+.watch-live { font-size: 9px; letter-spacing: .14em; color: #79c875; font-weight: 900; }
+.watch-section-title { display: flex; align-items: center; justify-content: space-between; border-top: 1px solid #333; padding-top: 14px; margin: 14px 0 9px; font-size: 10px; letter-spacing: .12em; color: #aaa; }
+.watch-section-title b { color: #fff; }
+.watch-board { width: min(100%, 300px); margin: 0 auto; display: grid; gap: 4px; }
+.watch-word-row { display: grid; grid-template-columns: repeat(5, minmax(0,1fr)); gap: 4px; width: 100%; }
+.watch-word-row.typing .watch-tile { border-style: dashed; }
+.watch-tile { aspect-ratio: 1; min-width: 0; display: grid; place-items: center; border: 2px solid #3a3a3c; font-weight: 900; font-size: 19px; }
+.watch-muted { color: #999; text-align: center; font-size: 12px; }
+.watch-r2-head { display: flex; justify-content: space-between; align-items: center; gap: 10px; color: #aaa; font-size: 11px; margin-bottom: 9px; }
+.watch-r2-head b { color: #fff; }
+.watch-r2-rows { display: grid; gap: 8px; }
+.watch-r2-row { padding: 9px; background: #202022; border: 1px solid #303033; border-radius: 10px; }
+.watch-r2-row.active { border-color: #ddd; }
+.watch-r2-row.solved { opacity: .82; }
+.watch-r2-title { display: flex; justify-content: space-between; gap: 8px; color: #999; font-size: 9px; margin-bottom: 6px; }
+.watch-r2-title b { color: #ddd; }
+.watch-r2-row .watch-word-row { max-width: 240px; }
+.watch-r2-row .watch-tile { font-size: 15px; }
+.watch-now { display: flex; align-items: center; gap: 8px; margin-top: 7px; font-size: 10px; }
+.watch-now span { color: #999; letter-spacing: .12em; }
+.watch-now b { letter-spacing: .18em; font-size: 14px; }
+.watch-flags { display: flex; flex-wrap: wrap; gap: 4px; margin-top: 7px; }
+.watch-flag { width: 26px; height: 26px; display: grid; place-items: center; background: #818384; border: 3px solid; border-radius: 4px; font-size: 10px; font-weight: 900; }
+.watch-flag.flag-y { border-color: #d2b83f; }
+.watch-flag.flag-g { border-color: #62a55b; }
+.watch-flag.flag-x { border-color: #050505; }
+.watch-tries { margin-top: 8px; border-top: 1px solid #333; }
+.watch-tries > div { display: flex; justify-content: space-between; gap: 8px; padding: 5px 0; border-bottom: 1px solid #2d2d30; font-size: 10px; }
+
+@media (max-width: 620px) {
+  .watch-backdrop { place-items: end center; padding: 0; }
+  .watch-modal { width: 100%; max-height: 91dvh; border-radius: 18px 18px 0 0; padding: 14px max(12px, env(safe-area-inset-right)) calc(16px + env(safe-area-inset-bottom)) max(12px, env(safe-area-inset-left)); }
+  .watch-header { margin-bottom: 12px; }
+  .watch-avatar { width: 42px; height: 42px; }
+  .watch-header h2 { font-size: 20px; }
+  .watch-board { width: min(78vw, 270px); }
+  .watch-tile { font-size: clamp(14px, 5vw, 19px); }
+  .watch-r2-row { padding: 8px; }
+  .watch-r2-row .watch-word-row { max-width: 210px; }
+}
