@@ -21,6 +21,7 @@ if (!token) {
   process.exit(1);
 }
 
+const WORDLE_APP_ID = '1211781489931452447';
 const dataDir = path.resolve(process.env.DATA_DIR || './data');
 const controlUserId = process.env.CONTROL_USER_ID?.trim() || null;
 const store = new CaptureStore({ dataDir });
@@ -42,6 +43,32 @@ function isAuthorized(message) {
   if (message.author?.bot) return false;
   if (!controlUserId) return true;
   return message.author.id === controlUserId;
+}
+
+function serializeAttachment(attachment) {
+  return {
+    id: attachment.id,
+    name: attachment.name ?? null,
+    description: attachment.description ?? null,
+    url: attachment.url ?? null,
+    proxyURL: attachment.proxyURL ?? null,
+    contentType: attachment.contentType ?? null,
+    size: attachment.size ?? null,
+    width: attachment.width ?? null,
+    height: attachment.height ?? null,
+    duration: attachment.duration ?? null,
+    waveform: attachment.waveform ?? null,
+    ephemeral: attachment.ephemeral ?? null,
+    flags: attachment.flags?.bitfield?.toString?.() ?? attachment.flags ?? null
+  };
+}
+
+function serializeMessage(message) {
+  const json = typeof message.toJSON === 'function' ? message.toJSON() : { ...message };
+  if (message.attachments?.values) {
+    json.attachments = [...message.attachments.values()].map(serializeAttachment);
+  }
+  return json;
 }
 
 function addRecord(event, data, extra = {}) {
@@ -78,18 +105,17 @@ async function addHydratedMessage(event, message) {
     console.warn('Could not fetch full message:', error?.message ?? error);
   }
 
-  const json = typeof full.toJSON === 'function' ? full.toJSON() : full;
-  addRecord(event, json, { source: 'discordjs-hydrated' });
+  addRecord(event, serializeMessage(full), { source: 'discordjs-hydrated' });
 }
 
-async function scanHistory(message, requestedCount = 300) {
+async function fetchHistory(channel, requestedCount = 300) {
   const target = Math.max(1, Math.min(Number(requestedCount) || 300, 1000));
   const collected = [];
   let before;
 
   while (collected.length < target) {
     const pageSize = Math.min(100, target - collected.length);
-    const batch = await message.channel.messages.fetch({
+    const batch = await channel.messages.fetch({
       limit: pageSize,
       ...(before ? { before } : {})
     });
@@ -104,6 +130,11 @@ async function scanHistory(message, requestedCount = 300) {
   }
 
   collected.sort((a, b) => a.createdTimestamp - b.createdTimestamp);
+  return { target, collected };
+}
+
+async function scanHistory(message, requestedCount = 300) {
+  const { target, collected } = await fetchHistory(message.channel, requestedCount);
 
   store.clear();
   watch = null;
@@ -120,8 +151,7 @@ async function scanHistory(message, requestedCount = 300) {
       console.warn('Could not hydrate historical message:', error?.message ?? error);
     }
 
-    const json = typeof full.toJSON === 'function' ? full.toJSON() : full;
-    addRecord('HISTORY_MESSAGE', json, {
+    addRecord('HISTORY_MESSAGE', serializeMessage(full), {
       source: 'discord-rest-history',
       messageCreatedAt: full.createdAt?.toISOString?.() ?? null,
       messageEditedAt: full.editedAt?.toISOString?.() ?? null
@@ -141,6 +171,79 @@ async function scanHistory(message, requestedCount = 300) {
   };
 
   return summarizeCapture(store.records);
+}
+
+function serializedInteractionUserId(message) {
+  const json = serializeMessage(message);
+  const user = json?.interactionMetadata?.user;
+  if (typeof user === 'string') return user;
+  if (user?.id) return user.id;
+  return message.interactionMetadata?.user?.id ?? null;
+}
+
+async function findLatestUserWordleMessage(message) {
+  const { collected } = await fetchHistory(message.channel, 100);
+  return [...collected]
+    .sort((a, b) => b.createdTimestamp - a.createdTimestamp)
+    .find((candidate) => {
+      const appId = candidate.applicationId ?? candidate.author?.id;
+      if (appId !== WORDLE_APP_ID) return false;
+      if (!/\b(?:is|was|are|were) playing\b/i.test(candidate.content ?? '')) return false;
+      return serializedInteractionUserId(candidate) === message.author.id;
+    }) ?? null;
+}
+
+async function sendMessageMedia(commandMessage, targetMessage) {
+  if (!targetMessage) {
+    await commandMessage.reply('対象のWordleメッセージが見つかりませんでした。');
+    return;
+  }
+
+  const attachments = [...targetMessage.attachments.values()];
+  if (!attachments.length) {
+    await commandMessage.reply(`メッセージ ${targetMessage.id} には添付ファイルがありません。`);
+    return;
+  }
+
+  const files = [];
+  const metadata = [];
+
+  for (const attachment of attachments.slice(0, 10)) {
+    metadata.push(serializeAttachment(attachment));
+    try {
+      const response = await fetch(attachment.url);
+      if (!response.ok) throw new Error(`HTTP ${response.status}`);
+      const buffer = Buffer.from(await response.arrayBuffer());
+      files.push(new AttachmentBuilder(buffer, {
+        name: attachment.name || `wordle-${attachment.id}`
+      }));
+    } catch (error) {
+      console.warn(`Could not download attachment ${attachment.id}:`, error?.message ?? error);
+    }
+  }
+
+  const metaText = JSON.stringify({
+    messageId: targetMessage.id,
+    content: targetMessage.content,
+    createdAt: targetMessage.createdAt?.toISOString?.() ?? null,
+    editedAt: targetMessage.editedAt?.toISOString?.() ?? null,
+    interactionUserId: serializedInteractionUserId(targetMessage),
+    attachments: metadata
+  }, null, 2);
+
+  if (files.length) {
+    await commandMessage.reply({
+      content:
+        `Wordleメッセージ ${targetMessage.id} の添付を再取得しました。画像をChatGPTにアップロードしてください。\n` +
+        '```json\n' + metaText.slice(0, 1400) + '\n```',
+      files
+    });
+  } else {
+    await commandMessage.reply(
+      `添付のメタデータは取得できましたが、ファイル本体の再ダウンロードに失敗しました。\n` +
+      '```json\n' + metaText.slice(0, 1600) + '\n```'
+    );
+  }
 }
 
 client.on(Events.MessageCreate, async (message) => {
@@ -188,7 +291,7 @@ async function handleCommand(message) {
         const summary = await scanHistory(message, requested);
         await message.reply(
           `過去ログ取得完了。${summary.totalRecords}件保存しました（Wordle候補 ${summary.wordleCandidates}件）。\n` +
-          '次に `!w2 inspect` → `!w2 export` を実行してください。'
+          '添付URLなども保存するようになりました。次に `!w2 export` を実行してください。'
         );
       } catch (error) {
         console.error('History scan failed:', error);
@@ -196,6 +299,22 @@ async function handleCommand(message) {
           `過去ログ取得に失敗しました: ${error?.message ?? error}\n` +
           'Botに「チャンネルを見る」「メッセージ履歴を読む」権限があるか確認してください。'
         );
+      }
+      break;
+    }
+
+    case 'media': {
+      try {
+        let targetMessage = null;
+        if (args[1]) {
+          targetMessage = await message.channel.messages.fetch(args[1]);
+        } else {
+          targetMessage = await findLatestUserWordleMessage(message);
+        }
+        await sendMessageMedia(message, targetMessage);
+      } catch (error) {
+        console.error('Media fetch failed:', error);
+        await message.reply(`Wordle添付の取得に失敗しました: ${error?.message ?? error}`);
       }
       break;
     }
@@ -262,6 +381,8 @@ async function handleCommand(message) {
     default:
       await message.reply(
         '**Wordle Round 2 Observer**\n' +
+        '`!w2 media` 自分の直近Wordle添付を再取得\n' +
+        '`!w2 media <messageId>` 指定Wordleメッセージの添付を再取得\n' +
         '`!w2 scan 300` 過去メッセージを遡って取得（1〜1000件）\n' +
         '`!w2 watch` 今後のイベント観測開始（既存データを消去）\n' +
         '`!w2 stop` 観測停止\n' +
