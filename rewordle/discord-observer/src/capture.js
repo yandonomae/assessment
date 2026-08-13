@@ -1,6 +1,8 @@
 import fs from 'node:fs';
 import path from 'node:path';
 
+const WORDLE_APP_ID = '1211781489931452447';
+
 export const CAPTURE_EVENT_NAMES = new Set([
   'MESSAGE_CREATE',
   'MESSAGE_UPDATE',
@@ -30,8 +32,11 @@ export function deepText(value) {
 }
 
 export function looksLikeWordle(data) {
+  const applicationId = data?.application_id ?? data?.applicationId ?? data?.webhook_id ?? data?.webhookId;
+  if (applicationId === WORDLE_APP_ID) return true;
+
   const text = deepText(data).toLowerCase();
-  return text.includes('wordle') || /[🟩🟨⬛⬜]{3,}/u.test(text);
+  return /[🟩🟨⬛⬜]{3,}/u.test(text) || /\bwordle\b/.test(text);
 }
 
 export function summarizeCapture(records) {
