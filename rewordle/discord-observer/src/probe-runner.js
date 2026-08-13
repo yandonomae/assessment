@@ -1,6 +1,7 @@
 import 'dotenv/config';
 import { gzipSync } from 'node:zlib';
 import { probeWordleActivity } from './probe.js';
+import { deepProbe } from './deep-probe.js';
 
 const token = process.env.DISCORD_TOKEN;
 const channelId = process.env.PROBE_CHANNEL_ID || '1379481540773281922';
@@ -24,13 +25,13 @@ async function sendFile({ content, buffer, filename, contentType = 'application/
   }
 }
 
-async function sendReport(report) {
+async function sendJsonReport(report, prefix, message) {
   const json = Buffer.from(JSON.stringify(report, null, 2), 'utf8');
   const gz = gzipSync(json, { level: 9 });
   await sendFile({
-    content: `Wordle Activity probe complete. Raw JSON ${json.byteLength} bytes → gzip ${gz.byteLength} bytes. このファイルをChatGPTにアップロードしてください。`,
+    content: `${message} Raw JSON ${json.byteLength} bytes → gzip ${gz.byteLength} bytes.`,
     buffer: gz,
-    filename: `wordle-activity-probe-${Date.now()}.json.gz`
+    filename: `${prefix}-${Date.now()}.json.gz`
   });
 }
 
@@ -51,7 +52,7 @@ async function sendRawBundles(report) {
       const urlObj = new URL(url);
       const baseName = urlObj.pathname.split('/').pop() || 'wordle-activity.js';
       await sendFile({
-        content: `Wordle Activityの生JSバンドルです (${raw.byteLength} bytes → gzip ${gz.byteLength} bytes)。これもChatGPTにアップロードしてください。`,
+        content: `Wordle Activityの生JSバンドルです (${raw.byteLength} bytes → gzip ${gz.byteLength} bytes)。`,
         buffer: gz,
         filename: `${baseName}.gz`
       });
@@ -66,9 +67,13 @@ try {
   console.log('Starting Wordle Activity public bundle probe...');
   const report = await probeWordleActivity();
   console.log(`Probe finished: ${report.assets?.length ?? 0} JS assets, ${report.combined?.routeStrings?.length ?? 0} route strings, ${report.combined?.absoluteUrls?.length ?? 0} URLs.`);
-  await sendReport(report);
+  await sendJsonReport(report, 'wordle-activity-probe', 'Wordle Activity probe complete.');
+
+  const deep = await deepProbe();
+  await sendJsonReport(deep, 'wordle-deep-probe', 'Wordle game-state deep probe complete. これをChatGPTにアップロードしてください。');
+
   await sendRawBundles(report);
-  console.log('Probe report and raw bundle(s) sent to Discord.');
+  console.log('Probe reports and raw bundle(s) sent to Discord.');
 } catch (error) {
   console.error('Probe runner failed:', error);
   process.exitCode = 0;
