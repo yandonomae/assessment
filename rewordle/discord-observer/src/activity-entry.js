@@ -20,7 +20,10 @@ function normalizePath(rawUrl = '/') {
 }
 
 const proxy = http.createServer((req, res) => {
-  const mappedPath = normalizePath(req.url || '/');
+  const incoming = req.url || '/';
+  const mappedPath = normalizePath(incoming);
+  console.log(`[activity-proxy] -> ${req.method} ${incoming} host=${req.headers.host || '-'} mapped=${mappedPath}`);
+
   const upstream = http.request({
     hostname: '127.0.0.1',
     port: backendPort,
@@ -33,12 +36,13 @@ const proxy = http.createServer((req, res) => {
       'x-forwarded-proto': 'https'
     }
   }, (upstreamRes) => {
+    console.log(`[activity-proxy] <- ${upstreamRes.statusCode || 0} ${req.method} ${incoming} mapped=${mappedPath}`);
     res.writeHead(upstreamRes.statusCode || 502, upstreamRes.headers);
     upstreamRes.pipe(res);
   });
 
   upstream.on('error', (error) => {
-    console.error('[activity-proxy] upstream error:', error?.message || error);
+    console.error(`[activity-proxy] upstream error ${req.method} ${incoming}:`, error?.message || error);
     if (!res.headersSent) {
       res.writeHead(502, { 'content-type': 'application/json; charset=utf-8' });
     }
