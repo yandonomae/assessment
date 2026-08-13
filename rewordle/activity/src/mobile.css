@@ -1,0 +1,399 @@
+:root {
+  --sait: var(--discord-safe-area-inset-top, env(safe-area-inset-top, 0px));
+  --saib: var(--discord-safe-area-inset-bottom, env(safe-area-inset-bottom, 0px));
+  --sail: var(--discord-safe-area-inset-left, env(safe-area-inset-left, 0px));
+  --sair: var(--discord-safe-area-inset-right, env(safe-area-inset-right, 0px));
+}
+
+html,
+body,
+#app {
+  width: 100%;
+  min-height: 100%;
+}
+
+body {
+  min-height: 100dvh;
+  overflow-x: hidden;
+  overscroll-behavior-y: none;
+  -webkit-text-size-adjust: 100%;
+}
+
+button,
+.key,
+.reconstruct-line {
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.shell {
+  padding-top: calc(18px + var(--sait));
+  padding-right: calc(clamp(12px, 3vw, 28px) + var(--sair));
+  padding-bottom: calc(40px + var(--saib));
+  padding-left: calc(clamp(12px, 3vw, 28px) + var(--sail));
+}
+
+.toast {
+  top: calc(12px + var(--sait));
+}
+
+@media (max-width: 720px) {
+  body {
+    min-width: 0;
+  }
+
+  .shell {
+    width: 100%;
+    padding-top: calc(8px + var(--sait));
+    padding-right: calc(8px + var(--sair));
+    padding-bottom: calc(18px + var(--saib));
+    padding-left: calc(8px + var(--sail));
+  }
+
+  header {
+    margin-bottom: 8px;
+  }
+
+  .brand-row {
+    justify-content: space-between;
+    gap: 8px;
+    padding-inline: 4px;
+  }
+
+  h1 {
+    font-size: clamp(25px, 7vw, 31px);
+  }
+
+  .subtitle {
+    display: none;
+  }
+
+  .phase-pill {
+    flex: none;
+    font-size: 9px;
+    padding: 3px 6px;
+  }
+
+  .participants {
+    justify-content: flex-start;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    overscroll-behavior-x: contain;
+    scrollbar-width: none;
+    padding: 2px 4px 4px;
+    margin-inline: -4px;
+  }
+
+  .participants::-webkit-scrollbar {
+    display: none;
+  }
+
+  .participant {
+    flex: 0 0 auto;
+    font-size: 11px;
+    padding-block: 4px;
+  }
+
+  .avatar.small {
+    width: 23px;
+    height: 23px;
+  }
+
+  .card {
+    margin: 8px auto;
+    padding: 16px 14px;
+    border-radius: 12px;
+  }
+
+  .lobby-list {
+    margin: 14px 0;
+  }
+
+  .primary.big {
+    min-height: 48px;
+  }
+
+  .game-grid {
+    grid-template-columns: 1fr;
+    gap: 8px;
+  }
+
+  .game-main {
+    padding: 10px 8px 12px;
+    border-radius: 12px;
+  }
+
+  .side-card {
+    position: static;
+    padding: 12px;
+    border-radius: 12px;
+  }
+
+  .round2-grid .side-card {
+    display: none;
+  }
+
+  .round-heading {
+    gap: 8px;
+    margin: 0 4px 4px;
+  }
+
+  .round-heading h2 {
+    font-size: clamp(16px, 4.5vw, 20px);
+  }
+
+  .moves b {
+    font-size: 24px;
+  }
+
+  .wordle-board {
+    width: min(78vw, 300px);
+    margin: 8px auto;
+    gap: 4px;
+  }
+
+  .word-row {
+    gap: 4px;
+  }
+
+  .tile {
+    font-size: clamp(18px, 7vw, 25px);
+  }
+
+  .current-input {
+    margin: 6px auto;
+    gap: 4px;
+  }
+
+  .current-input span {
+    width: 30px;
+    height: 30px;
+  }
+
+  .notice {
+    margin: 8px auto;
+    padding: 8px;
+    font-size: 12px;
+  }
+
+  .keyboard {
+    max-width: none;
+    margin: 9px auto 2px;
+  }
+
+  .key-row {
+    gap: 3px;
+    margin: 3px 0;
+  }
+
+  .key-row.inset {
+    padding-inline: 4%;
+  }
+
+  .key {
+    height: clamp(44px, 12vw, 50px);
+    padding-inline: 1px;
+    border-radius: 4px;
+    font-size: clamp(10px, 3.2vw, 14px);
+  }
+
+  .key.wide {
+    flex: 1.42;
+    font-size: 9px;
+  }
+
+  /* On phones the extra flag/input control gets its own row so the
+     seven-letter bottom keyboard row keeps useful tap targets. */
+  .key-row.bottom {
+    flex-wrap: wrap;
+  }
+
+  .mode-switch {
+    order: -1;
+    flex: 0 0 100%;
+    width: 100%;
+    height: 38px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr;
+    gap: 4px;
+    margin: 0 0 2px;
+  }
+
+  .mode-mini {
+    min-height: 38px;
+    font-size: 12px;
+  }
+
+  .mode-mini[data-mode="input"]::after {
+    content: "  入力";
+  }
+
+  .mode-mini[data-mode="flag"]::after {
+    content: "  フラグ";
+  }
+
+  .key.flag-y::after,
+  .key.flag-g::after,
+  .key.flag-x::after {
+    inset: 3px;
+    border-width: 3px;
+  }
+
+  .final-word {
+    margin: 5px 0 8px;
+  }
+
+  .final-word b {
+    font-size: 17px;
+  }
+
+  .reconstruct-board {
+    width: 100%;
+    max-width: 390px;
+    gap: 3px;
+    margin-bottom: 8px;
+  }
+
+  .reconstruct-line {
+    grid-template-columns: 16px minmax(0, 1fr) 42px;
+    gap: 3px;
+    padding: 2px;
+  }
+
+  .word-row.compact {
+    gap: 3px;
+  }
+
+  .compact .tile {
+    font-size: clamp(12px, 4vw, 17px);
+  }
+
+  .row-number,
+  .row-state {
+    font-size: 8px;
+  }
+
+  .active-row-title {
+    margin-top: 8px;
+    font-size: 13px;
+  }
+
+  .pattern-hint {
+    font-size: 11px;
+  }
+
+  .feedback-strip {
+    grid-template-columns: repeat(5, min(10vw, 38px));
+    gap: 3px;
+    margin: 7px auto;
+  }
+
+  .feedback-strip .tile {
+    font-size: 14px;
+  }
+
+  .mode-help {
+    margin: 5px 4px;
+    font-size: 10px;
+  }
+
+  .history {
+    margin-top: 6px;
+  }
+
+  .history div {
+    padding: 5px 2px;
+  }
+
+  .result-board {
+    margin: 18px 0 10px;
+  }
+
+  .rank-row {
+    grid-template-columns: 26px minmax(0, 1fr) auto;
+    padding: 9px 8px;
+  }
+
+  .loading,
+  .setup-error {
+    margin-top: min(12vh, 72px);
+  }
+}
+
+@media (max-width: 380px) {
+  .shell {
+    padding-right: calc(5px + var(--sair));
+    padding-left: calc(5px + var(--sail));
+  }
+
+  .game-main {
+    padding-inline: 6px;
+  }
+
+  .wordle-board {
+    width: min(76vw, 276px);
+  }
+
+  .key-row {
+    gap: 2px;
+  }
+
+  .key {
+    font-size: 10px;
+  }
+
+  .reconstruct-line {
+    grid-template-columns: 14px minmax(0, 1fr) 38px;
+  }
+}
+
+@media (max-height: 620px) and (max-width: 720px) {
+  header {
+    margin-bottom: 4px;
+  }
+
+  .participants {
+    padding-bottom: 1px;
+  }
+
+  .wordle-board {
+    width: min(64vh, 270px);
+    margin-block: 4px;
+  }
+
+  .keyboard {
+    margin-top: 5px;
+  }
+
+  .key {
+    height: 42px;
+  }
+
+  .side-card {
+    display: none;
+  }
+}
+
+@media (orientation: landscape) and (max-height: 520px) {
+  .shell {
+    padding-top: calc(4px + var(--sait));
+    padding-bottom: calc(8px + var(--saib));
+  }
+
+  .brand-row {
+    justify-content: center;
+  }
+
+  .phase-pill {
+    display: none;
+  }
+
+  .participants {
+    display: none;
+  }
+
+  .wordle-board {
+    width: min(58vh, 250px);
+  }
+}
