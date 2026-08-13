@@ -1,15 +1,16 @@
 {
-  "name": "wordle-round2-observer",
-  "version": "0.1.0",
+  "name": "rewordle-discord-service",
+  "version": "0.2.0",
   "private": true,
   "type": "module",
-  "description": "Temporary Discord gateway observer for inspecting NYT Wordle Activity message payloads before building Round 2.",
+  "description": "RE:WORDLE Discord Activity backend plus the temporary Discord observer tools.",
   "engines": {
     "node": ">=22.12.0"
   },
   "scripts": {
-    "start": "node src/index.js",
-    "check": "node --check src/index.js && node --test"
+    "start": "node src/activity-server.js",
+    "start:observer": "node src/index.js",
+    "check": "node --check src/activity-server.js && node --check src/index.js && node --test"
   },
   "dependencies": {
     "discord.js": "^14.27.0",
