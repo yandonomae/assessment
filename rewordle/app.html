@@ -1,1 +1,500 @@
-<!doctype html><meta charset="utf-8"><title>Temporary copy</title><p>Preparing...</p>
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#121213" />
+  <title>RE:WORDLE</title>
+  <style>:root{--bg:#121213;--panel:#1b1b1d;--text:#f7f7f7;--muted:#a6a6a8;--border:#3a3a3c;--green:#538d4e;--yellow:#b59f3b;--gray:#3a3a3c;--key:#818384}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font-family:Arial,Helvetica,sans-serif;min-height:100vh}button,input{font:inherit}.app{width:min(760px,100%);min-height:100vh;margin:0 auto;padding:0 14px 30px}.topbar{height:58px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--border)}.brand{font-size:23px;font-weight:900;letter-spacing:.04em}.brand span{font-weight:600;color:#b8b8ba}.iconButton{width:38px;height:38px;border:0;border-radius:50%;background:transparent;color:#fff;font-size:21px;cursor:pointer}.intro{text-align:center;padding:20px 10px 10px}.kicker{margin:0;color:var(--muted);font-size:11px;font-weight:800;letter-spacing:.16em}.intro h1{margin:7px 0 8px;font-size:27px}.intro>p:last-child{margin:0 auto;max-width:590px;color:#c8c8ca;font-size:14px;line-height:1.55}.scorebar{display:flex;justify-content:center;gap:34px;padding:10px 0 16px}.scorebar div{text-align:center}.scorebar strong{display:block;font-size:25px}.scorebar span{display:block;margin-top:1px;color:var(--muted);font-size:10px;font-weight:800;letter-spacing:.08em}.finalAnswer{width:max-content;max-width:100%;margin:0 auto 14px;padding:9px 14px;border:1px solid var(--border);border-radius:9px;background:var(--panel);display:flex;gap:12px;align-items:center}.finalAnswer span{color:var(--muted);font-size:10px;font-weight:800}.finalAnswer strong{font-size:20px;letter-spacing:.18em}.traceBoard{width:min(360px,100%);margin:0 auto 20px;display:grid;gap:7px}.traceRow{display:grid;grid-template-columns:25px 1fr 56px;gap:7px;align-items:center}.rowNumber{font-size:11px;color:var(--muted);text-align:right}.rowTiles{display:grid;grid-template-columns:repeat(5,1fr);gap:5px;padding:4px;border-radius:7px;outline:2px solid transparent;cursor:pointer;transition:.15s}.rowTiles:hover{background:#1c1c1e}.rowTiles.active{outline-color:#f2f2f2;background:#222}.rowTiles.solved{opacity:.6}.tile{aspect-ratio:1;display:flex;align-items:center;justify-content:center;border:2px solid var(--border);font-size:22px;font-weight:900;text-transform:uppercase}.tile.green{background:var(--green);border-color:var(--green)}.tile.yellow{background:var(--yellow);border-color:var(--yellow)}.tile.gray{background:var(--gray);border-color:var(--gray)}.tile.blank{background:transparent}.rowMeta{font-size:10px;color:var(--muted)}.rowMeta.solved{color:#8fbd89;font-weight:800}.solvePanel{border-top:1px solid var(--border);padding-top:18px}.solveHeading{text-align:center}.solveHeading h2{margin:0 0 4px;font-size:16px}.solveHeading p{margin:0 0 12px;color:var(--muted);font-size:12px}.feedbackRow{display:grid;grid-template-columns:repeat(5,52px);gap:5px;justify-content:center;min-height:52px;margin:0 auto 14px}.inputControls{display:flex;align-items:stretch;justify-content:center;gap:8px;margin:0 auto 8px;max-width:520px}.modeSwitch{display:flex;flex-direction:column;width:82px;flex:0 0 82px;border:1px solid #5b5b5e;border-radius:6px;overflow:hidden;background:#242426}.modeButton{flex:1;border:0;background:transparent;color:#a9a9ac;padding:6px 7px;font-size:11px;font-weight:900;cursor:pointer;transition:.15s}.modeButton+ .modeButton{border-top:1px solid #4a4a4d}.modeButton.active{background:#f2f2f2;color:#111}.guessForm{display:flex;justify-content:center;gap:8px;margin:0;flex:1}.guessForm input{width:190px;max-width:58vw;border:0;border-radius:5px;background:#fff;color:#111;padding:11px 12px;text-transform:uppercase;text-align:center;font-weight:900;letter-spacing:.16em}.guessForm button,.completeCard button,dialog button{border:0;border-radius:5px;background:#fff;color:#111;padding:11px 15px;font-weight:900;cursor:pointer}.guessForm button:disabled,.guessForm input:disabled{opacity:.5}.modeHelp{margin:0 auto 13px;max-width:520px;text-align:center;color:var(--muted);font-size:11px;min-height:16px}.keyboard{width:min(520px,100%);margin:0 auto;display:grid;gap:6px}.keyRow{display:flex;justify-content:center;gap:5px}.key{position:relative;height:46px;flex:1;max-width:45px;min-width:26px;border:0;border-radius:4px;background:var(--key);color:#fff;font-size:12px;font-weight:900;cursor:pointer;isolation:isolate}.key::after{content:"";position:absolute;inset:0;border-radius:4px;pointer-events:none;box-sizing:border-box}.key.flag-yellow::after{border:5px solid var(--yellow)}.key.flag-green::after{border:5px solid var(--green)}.key.flag-black::after{border:5px solid #111;box-shadow:inset 0 0 0 1px #666}.key.green{background:var(--green)}.key.yellow{background:var(--yellow)}.key.gray{background:var(--gray)}.history{width:min(470px,100%);margin:17px auto 0}.historyTitle{margin-bottom:5px;color:var(--muted);font-size:11px;font-weight:800}.historyItem{display:flex;align-items:center;justify-content:space-between;padding:7px 2px;border-top:1px solid #28282a;font-size:12px}.miniTiles{display:flex;gap:2px}.miniTile{width:16px;height:16px}.miniTile.green{background:var(--green)}.miniTile.yellow{background:var(--yellow)}.miniTile.gray{background:var(--gray)}.actions{text-align:center;margin-top:22px}.secondaryButton{border:1px solid #68686a;border-radius:6px;background:transparent;color:#fff;padding:9px 13px;font-weight:800;cursor:pointer}.toast{position:fixed;top:73px;left:50%;transform:translateX(-50%);z-index:30;opacity:0;pointer-events:none;padding:9px 14px;border-radius:5px;background:#fff;color:#111;font-size:13px;font-weight:900;transition:.18s}.toast.show{opacity:1}dialog{width:min(520px,calc(100% - 28px));border:1px solid #57575a;border-radius:12px;background:#1d1d1f;color:#fff;padding:22px}dialog::backdrop{background:rgba(0,0,0,.72)}dialog h2{margin-top:0}dialog li{margin-bottom:6px;color:#cdcdcf;font-size:14px;line-height:1.45}dialog button{float:right}.completeOverlay{position:fixed;inset:0;z-index:40;display:flex;align-items:center;justify-content:center;padding:20px;background:rgba(0,0,0,.84)}.completeOverlay[hidden]{display:none}.completeCard{width:min(390px,100%);padding:25px;text-align:center;border:1px solid #57575a;border-radius:14px;background:#1e1e20}.completeCard h2{margin:7px 0}.bigScore{display:block;font-size:58px;line-height:1;margin-top:14px}.completeCard>p{color:#c8c8ca}.completeCard .kicker{color:#aaa}@media(max-width:480px){.app{padding-left:10px;padding-right:10px}.inputControls{gap:6px}.modeSwitch{width:72px;flex-basis:72px}.modeButton{font-size:10px;padding:5px 4px}.traceBoard{width:min(330px,100%)}.traceRow{grid-template-columns:20px 1fr 51px}.tile{font-size:20px}.feedbackRow{grid-template-columns:repeat(5,47px)}.key{height:43px}.intro h1{font-size:24px}}
+</style>
+</head>
+<body>
+  <main class="app">
+    <header class="topbar">
+      <div class="brand">RE:<span>WORDLE</span></div>
+      <button id="helpButton" class="iconButton" type="button" aria-label="遊び方">?</button>
+    </header>
+
+    <section class="intro">
+      <p class="kicker">RECONSTRUCT THE SOLVE</p>
+      <h1>相手の盤面を逆算せよ</h1>
+      <p>コンピュータが解いたWordleの色と最後の正解だけを手がかりに、隠れた予想ワードを復元します。入力した1語は未クリアの全列へ同時に適用され、まとめて1手です。</p>
+    </section>
+
+    <section class="scorebar" aria-label="スコア">
+      <div><strong id="moveCount">0</strong><span>MOVES</span></div>
+      <div><strong id="rowProgress">0/0</strong><span>ROWS</span></div>
+      <div><strong id="bestScore">—</strong><span>BEST</span></div>
+    </section>
+
+    <section class="finalAnswer">
+      <span>FINAL WORD</span>
+      <strong id="finalAnswer"></strong>
+    </section>
+
+    <section>
+      <div id="traceBoard" class="traceBoard" aria-label="元のWordle盤面"></div>
+    </section>
+
+    <section class="solvePanel">
+      <div class="solveHeading">
+        <h2 id="activeRowTitle">ROW 1 を復元</h2>
+        <p id="activeRowHint"></p>
+      </div>
+
+      <div id="lastFeedback" class="feedbackRow" aria-label="直前の予想結果"></div>
+
+      <div class="inputControls">
+        <div class="modeSwitch" role="group" aria-label="操作モード">
+          <button id="inputModeButton" class="modeButton active" type="button" data-mode="input" aria-pressed="true">⌨ 入力</button>
+          <button id="flagModeButton" class="modeButton" type="button" data-mode="flag" aria-pressed="false">⚑ フラグ</button>
+        </div>
+        <form id="guessForm" class="guessForm" autocomplete="off">
+          <input id="guessInput" name="guess" maxlength="5" inputmode="text" autocapitalize="characters" spellcheck="false" aria-label="5文字の予想ワード" placeholder="GUESS" />
+          <button id="submitGuess" type="submit">ENTER</button>
+        </form>
+      </div>
+      <p id="modeHelp" class="modeHelp">入力モード：1語を未クリアの全ROWへ同時に試します（全部まとめて1手）。</p>
+
+      <div id="keyboard" class="keyboard" aria-label="行ごとのキーボード"></div>
+      <div id="rowHistory" class="history"></div>
+    </section>
+
+    <div class="actions">
+      <button id="newPuzzleButton" class="secondaryButton" type="button">別のプリセット盤面</button>
+    </div>
+  </main>
+
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+
+  <dialog id="helpDialog">
+    <h2>遊び方</h2>
+    <ol>
+      <li>ページを開くと、人間っぽい解答履歴を収録したプリセット盤面が1つ選ばれます。</li>
+      <li>元盤面では各行の「色」だけが見え、最後の正解だけ文字も見えます。</li>
+      <li>5文字を入力すると、その語を未クリアの全行に同時に試します。何行に適用しても合計1手です。</li>
+      <li>各行には、その行の隠しワードを正解とした別々のWordle判定が記録されます。行をクリックすると、その行の結果を確認できます。</li>
+      <li>「入力」と「フラグ」を切り替えられます。フラグモードではキーを押すたび、外枠だけが 黄 → 緑 → 黒 → 無印 と切り替わります。</li>
+      <li>フラグはあなたの仮説です。実際の入力で判明した色はキー全面に表示され、フラグより優先されます。</li>
+      <li>キーボードの確定色・フラグ・予想履歴はすべて行ごとに独立して保持されます。</li>
+      <li>使われた全行を復元するまでの総予想回数がスコアです。</li>
+    </ol>
+    <button id="closeHelpButton" type="button">OK</button>
+  </dialog>
+
+  <div id="completeOverlay" class="completeOverlay" hidden>
+    <section class="completeCard" role="dialog" aria-modal="true" aria-labelledby="completeTitle">
+      <p class="kicker">BOARD RECONSTRUCTED</p>
+      <h2 id="completeTitle">完全復元</h2>
+      <strong id="completeMoves" class="bigScore">0</strong>
+      <p>MOVES</p>
+      <p id="completeMessage"></p>
+      <button id="nextPuzzleButton" type="button">次のプリセット盤面</button>
+    </section>
+  </div>
+
+  <script>(() => {
+  'use strict';
+
+  const PUZZLES = [
+    { answer: "PLANT", guesses: ["CRANE", "BLAST", "PLANK", "PLANT"] },
+    { answer: "LIGHT", guesses: ["CRANE", "SOUTH", "NIGHT", "MIGHT", "LIGHT"] },
+    { answer: "BEACH", guesses: ["STARE", "REACH", "TEACH", "PEACH", "BEACH"] },
+    { answer: "TRAIN", guesses: ["HOUSE", "GRAIN", "DRAIN", "BRAIN", "TRAIN"] },
+    { answer: "HOUSE", guesses: ["CRANE", "MOUSE", "LOUSE", "ROUSE", "HOUSE"] },
+    { answer: "WATER", guesses: ["SLING", "CATER", "LATER", "HATER", "WATER"] },
+    { answer: "BLACK", guesses: ["CRANE", "BLAST", "BLANK", "BLACK"] },
+    { answer: "SMILE", guesses: ["CRANE", "SPIKE", "SHINE", "SLIME", "SMILE"] },
+    { answer: "ROUND", guesses: ["SLATE", "MOUND", "FOUND", "BOUND", "ROUND"] },
+    { answer: "STONE", guesses: ["CRAMP", "SHINE", "STORE", "STOKE", "STONE"] },
+    { answer: "SHARE", guesses: ["CRATE", "SPARE", "SHORE", "SHARE"] },
+    { answer: "GRACE", guesses: ["SLATE", "CRANE", "GRADE", "GRAPE", "GRACE"] },
+    { answer: "CLOUD", guesses: ["RAISE", "COULD", "CLOUT", "CLOUD"] },
+    { answer: "DREAM", guesses: ["POINT", "CREAM", "BREAM", "DREAM"] },
+    { answer: "FRAME", guesses: ["AUDIO", "CRANE", "FLAME", "FRAME"] },
+    { answer: "POINT", guesses: ["SLATE", "MOUNT", "JOINT", "POINT"] },
+    { answer: "SOUND", guesses: ["IRATE", "BOUND", "FOUND", "SOUND"] },
+    { answer: "GREEN", guesses: ["SLATE", "CREED", "GREET", "GREEN"] },
+    { answer: "CHAIR", guesses: ["SLATE", "CHOIR", "CHAIN", "CHAIR"] },
+    { answer: "FLOOR", guesses: ["RAISE", "COLOR", "FLOUR", "FLOOR"] },
+    { answer: "SHEEP", guesses: ["CRANE", "SPEED", "SHEER", "SHEEP"] },
+    { answer: "APPLE", guesses: ["STERN", "AMPLE", "APPLY", "APPLE"] },
+    { answer: "WHITE", guesses: ["AROSE", "WHILE", "WHINE", "WHITE"] },
+    { answer: "WORLD", guesses: ["ADIEU", "COULD", "WOULD", "WORLD"] }
+  ];
+
+  const STATUS_RANK = { gray: 1, yellow: 2, green: 3 };
+  const KEY_ROWS = ['QWERTYUIOP', 'ASDFGHJKL', 'ZXCVBNM'];
+  const FLAG_CYCLE = [null, 'yellow', 'green', 'black'];
+  let game = null;
+  let toastTimer = null;
+
+  const els = {};
+
+  function cacheElements() {
+    ['moveCount','rowProgress','bestScore','finalAnswer','traceBoard','activeRowTitle','activeRowHint','lastFeedback','guessForm','guessInput','submitGuess','inputModeButton','flagModeButton','modeHelp','keyboard','rowHistory','newPuzzleButton','toast','helpButton','helpDialog','closeHelpButton','completeOverlay','completeMoves','completeMessage','nextPuzzleButton'].forEach((id) => {
+      els[id] = document.getElementById(id);
+    });
+  }
+
+  function scoreGuess(guess, target) {
+    const g = guess.toUpperCase();
+    const t = target.toUpperCase();
+    const result = Array(5).fill('gray');
+    const remaining = {};
+
+    for (let i = 0; i < 5; i += 1) {
+      if (g[i] === t[i]) {
+        result[i] = 'green';
+      } else {
+        remaining[t[i]] = (remaining[t[i]] || 0) + 1;
+      }
+    }
+
+    for (let i = 0; i < 5; i += 1) {
+      if (result[i] === 'green') continue;
+      if ((remaining[g[i]] || 0) > 0) {
+        result[i] = 'yellow';
+        remaining[g[i]] -= 1;
+      }
+    }
+
+    return result;
+  }
+
+  function choosePuzzleIndex() {
+    const previous = Number(localStorage.getItem('rewordle-global-last-index-v1') ?? -1);
+    let index = Math.floor(Math.random() * PUZZLES.length);
+    if (PUZZLES.length > 1 && index === previous) index = (index + 1) % PUZZLES.length;
+    localStorage.setItem('rewordle-global-last-index-v1', String(index));
+    return index;
+  }
+
+  function startRandomPuzzle() {
+    const index = choosePuzzleIndex();
+    const puzzle = PUZZLES[index];
+    const rows = puzzle.guesses.map((word, rowIndex) => ({
+      word,
+      cluePattern: scoreGuess(word, puzzle.answer),
+      solved: rowIndex === puzzle.guesses.length - 1,
+      keyboard: {},
+      flags: {},
+      history: []
+    }));
+
+    game = {
+      puzzle,
+      moves: 0,
+      rows,
+      activeRow: Math.max(0, rows.length - 2),
+      mode: 'input',
+      checkingWord: false
+    };
+
+    els.completeOverlay.hidden = true;
+    renderAll();
+    requestAnimationFrame(() => els.guessInput.focus());
+  }
+
+  function renderAll() {
+    renderStats();
+    renderTraceBoard();
+    renderActiveRow();
+  }
+
+  function renderStats() {
+    const solved = game.rows.filter((row) => row.solved).length;
+    els.moveCount.textContent = String(game.moves);
+    els.rowProgress.textContent = `${solved}/${game.rows.length}`;
+    els.bestScore.textContent = localStorage.getItem('rewordle-global-best-v1') || '—';
+    els.finalAnswer.textContent = game.puzzle.answer;
+  }
+
+  function makeTile(status, letter = '') {
+    const tile = document.createElement('div');
+    tile.className = `tile ${status || 'blank'}`;
+    tile.textContent = letter;
+    return tile;
+  }
+
+  function renderTraceBoard() {
+    els.traceBoard.replaceChildren();
+
+    for (let rowIndex = 0; rowIndex < 6; rowIndex += 1) {
+      const wrapper = document.createElement('div');
+      wrapper.className = 'traceRow';
+
+      const number = document.createElement('div');
+      number.className = 'rowNumber';
+      number.textContent = String(rowIndex + 1);
+      wrapper.appendChild(number);
+
+      const tiles = document.createElement('div');
+      tiles.className = 'rowTiles';
+      const row = game.rows[rowIndex];
+
+      if (row) {
+        if (game.activeRow === rowIndex) tiles.classList.add('active');
+        if (row.solved) tiles.classList.add('solved');
+
+        row.cluePattern.forEach((status, letterIndex) => {
+          tiles.appendChild(makeTile(status, row.solved ? row.word[letterIndex] : ''));
+        });
+
+        tiles.addEventListener('click', () => {
+          game.activeRow = rowIndex;
+          renderTraceBoard();
+          renderActiveRow();
+          if (!row.solved) els.guessInput.focus();
+        });
+      } else {
+        for (let i = 0; i < 5; i += 1) tiles.appendChild(makeTile('blank'));
+      }
+
+      wrapper.appendChild(tiles);
+
+      const meta = document.createElement('div');
+      meta.className = 'rowMeta';
+      if (row) {
+        meta.textContent = row.solved ? 'SOLVED' : `${row.history.length} tries`;
+        if (row.solved) meta.classList.add('solved');
+      }
+      wrapper.appendChild(meta);
+      els.traceBoard.appendChild(wrapper);
+    }
+  }
+
+  function renderActiveRow() {
+    const row = game.rows[game.activeRow];
+    if (!row) return;
+
+    els.activeRowTitle.textContent = game.mode === 'flag' ? `ROW ${game.activeRow + 1} にフラグ` : `全ROW探索（表示中 ROW ${game.activeRow + 1}）`;
+    els.activeRowHint.textContent = row.solved
+      ? `復元済み: ${row.word}`
+      : `元盤面の色: ${row.cluePattern.map(toEmoji).join('')}`;
+
+    renderModeControls(row);
+    els.guessInput.value = '';
+
+    renderLastFeedback(row);
+    renderKeyboard(row);
+    renderHistory(row);
+  }
+
+
+  function renderModeControls(row) {
+    const flagMode = game.mode === 'flag';
+    const hasUnsolved = game.rows.some((candidate) => !candidate.solved);
+    els.inputModeButton.classList.toggle('active', !flagMode);
+    els.flagModeButton.classList.toggle('active', flagMode);
+    els.inputModeButton.setAttribute('aria-pressed', String(!flagMode));
+    els.flagModeButton.setAttribute('aria-pressed', String(flagMode));
+    els.inputModeButton.disabled = !hasUnsolved;
+    els.flagModeButton.disabled = row.solved;
+    els.guessInput.disabled = flagMode || !hasUnsolved;
+    els.submitGuess.disabled = flagMode || !hasUnsolved;
+    els.guessInput.placeholder = flagMode ? 'FLAG MODE' : 'GUESS';
+    els.modeHelp.textContent = flagMode
+      ? (row.solved ? 'この行は復元済みのためフラグ編集できません。' : 'フラグモード：キーをクリックすると、外枠が 黄 → 緑 → 黒 → 無印 の順に切り替わります。')
+      : '入力モード：1語を未クリアの全ROWへ同時に試します。消費は合計1手です。';
+  }
+
+  function setMode(mode) {
+    if (!game || !['input', 'flag'].includes(mode)) return;
+    const row = game.rows[game.activeRow];
+    if (!row) return;
+    if (mode === 'flag' && row.solved) { showToast('復元済みの行にはフラグを付けません'); return; }
+    game.mode = mode;
+    renderModeControls(row);
+    renderKeyboard(row);
+    if (mode === 'input') requestAnimationFrame(() => els.guessInput.focus());
+  }
+
+  function cycleFlag(row, letter) {
+    if (row.keyboard[letter]) {
+      showToast(`${letter} は実入力で確定済みです`);
+      return;
+    }
+    const current = row.flags[letter] || null;
+    const currentIndex = FLAG_CYCLE.indexOf(current);
+    const next = FLAG_CYCLE[(currentIndex + 1) % FLAG_CYCLE.length];
+    if (next) row.flags[letter] = next;
+    else delete row.flags[letter];
+    renderKeyboard(row);
+  }
+
+  function renderLastFeedback(row) {
+    els.lastFeedback.replaceChildren();
+    const last = row.history[row.history.length - 1];
+    for (let i = 0; i < 5; i += 1) {
+      els.lastFeedback.appendChild(makeTile(last ? last.result[i] : 'blank', last ? last.guess[i] : ''));
+    }
+  }
+
+  function renderKeyboard(row) {
+    els.keyboard.replaceChildren();
+    KEY_ROWS.forEach((letters) => {
+      const keyRow = document.createElement('div');
+      keyRow.className = 'keyRow';
+      [...letters].forEach((letter) => {
+        const button = document.createElement('button');
+        button.type = 'button';
+        button.className = 'key';
+        button.textContent = letter;
+        if (row.keyboard[letter]) {
+          button.classList.add(row.keyboard[letter]);
+        } else if (row.flags[letter]) {
+          button.classList.add(`flag-${row.flags[letter]}`);
+        }
+        button.setAttribute('aria-label', row.keyboard[letter]
+          ? `${letter} 確定 ${row.keyboard[letter]}`
+          : row.flags[letter]
+            ? `${letter} フラグ ${row.flags[letter]}`
+            : letter);
+        button.addEventListener('click', () => {
+          if (game.mode === 'flag') {
+            if (row.solved) return;
+            cycleFlag(row, letter);
+            return;
+          }
+          if (els.guessInput.value.length >= 5) return;
+          els.guessInput.value += letter;
+          els.guessInput.focus();
+        });
+        keyRow.appendChild(button);
+      });
+      els.keyboard.appendChild(keyRow);
+    });
+  }
+
+  function renderHistory(row) {
+    els.rowHistory.replaceChildren();
+    if (row.history.length === 0) return;
+
+    const title = document.createElement('div');
+    title.className = 'historyTitle';
+    title.textContent = 'この行の予想履歴';
+    els.rowHistory.appendChild(title);
+
+    [...row.history].reverse().forEach((entry) => {
+      const item = document.createElement('div');
+      item.className = 'historyItem';
+      const word = document.createElement('strong');
+      word.textContent = entry.guess;
+      const minis = document.createElement('div');
+      minis.className = 'miniTiles';
+      entry.result.forEach((status) => {
+        const mini = document.createElement('span');
+        mini.className = `miniTile ${status}`;
+        minis.appendChild(mini);
+      });
+      item.append(word, minis);
+      els.rowHistory.appendChild(item);
+    });
+  }
+
+  // Local 5-letter dictionary: bundled so the game starts immediately and never waits on an external API.
+  const VALID_WORDS = new Set("AALII,ABACA,ABACK,ABAFT,ABAMP,ABASE,ABASH,ABATE,ABBEY,ABBOT,ABEAM,ABELE,ABHOR,ABIDE,ABMHO,ABODE,ABOHM,ABORT,ABOUT,ABOVE,ABUSE,ABUZZ,ABYSM,ABYSS,ACARI,ACCEL,ACERB,ACHOO,ACINI,ACORN,ACRID,ACTIN,ACTOR,ACUTE,ADAGE,ADAPT,ADDAX,ADDER,ADDLE,ADEPT,ADIEU,ADIOS,ADMAN,ADMEN,ADMIN,ADMIT,ADMIX,ADOBE,ADOPT,ADORE,ADORN,ADOWN,ADULT,ADUST,AECIA,AEDES,AEGIS,AERIE,AERON,AFFIX,AFIRE,AFOOT,AFORE,AFOUL,AFRIT,AGAIN,AGAMA,AGAPE,AGATE,AGAVE,AGENT,AGGER,AGGIE,AGGRO,AGILE,AGING,AGIST,AGITA,AGLET,AGLEY,AGLOW,AGONE,AGONY,AGORA,AGREE,AGRIC,AGRON,AHEAD,AIDED,AIOLI,AISLE,AITCH,AKENE,ALACK,ALARM,ALARY,ALATE,ALBUM,ALDER,ALDOL,ALEPH,ALERT,ALGAE,ALGAL,ALGID,ALGIN,ALGOR,ALIAS,ALIBI,ALIEN,ALIGN,ALIKE,ALKYD,ALKYL,ALLAY,ALLEE,ALLEY,ALLOT,ALLOW,ALLOY,ALLYL,ALOFT,ALOHA,ALOIN,ALONE,ALONG,ALOOF,ALOUD,ALPHA,ALTAR,ALTER,ALULA,AMAHS,AMAIN,AMASS,AMAZE,AMBER,AMBIT,AMBLE,AMBRY,AMEND,AMENT,AMICE,AMIDE,AMIGO,AMINE,AMINO,AMISS,AMITY,AMNIO,AMONG,AMOUR,AMPLE,AMUSE,ANCON,ANEAR,ANELE,ANENT,ANGEL,ANGER,ANGLE,ANGRY,ANGST,ANILE,ANIMA,ANIME,ANION,ANISE,ANKHS,ANKLE,ANKUS,ANNAL,ANNEX,ANNOY,ANNUL,ANODE,ANOLE,ANTIC,ANTIQ,ANTRE,ANTSY,ANVIL,AORTA,APACE,APART,APEAK,APERY,APHID,APHIS,APIAN,APISH,APNEA,APORT,APPEL,APPLE,APPLY,APRON,APSIS,APTER,ARBOR,ARCED,ARCUS,ARDOR,AREAL,ARECA,ARENA,ARGAL,ARGIL,ARGOL,ARGON,ARGOT,ARGUE,ARIAS,ARISE,ARMED,ARMET,ARMOR,AROIL,AROSE,ARRAY,ARROW,ARSIS,ARSON,ARTEL,ARTSY,ARUMS,ASCOT,ASCUS,ASHEN,ASHES,ASIDE,ASKED,ASKER,ASPEN,ASPIC,ASSAI,ASSAY,ASSES,ASSET,ASTER,ASTIR,ASURA,ATILT,ATLAS,ATOLL,ATOMS,ATONE,ATONY,ATOPY,ATRIA,ATTAR,AUDAD,AUDIO,AUDIT,AUGER,AUGHT,AULIC,AUNTS,AURAE,AURAL,AURAS,AUREI,AURIC,AUTOS,AUXIN,AVAIL,AVERS,AVERT,AVIAN,AVOID,AWAKE,AWARD,AWARE,AWASH,AWFUL,AWNED,AXIAL,AXILS,AXING,AXIOM,AXION,AXLES,AZIDE,AZINE,AZOIC,AZOLE,AZURE,BABEL,BABES,BACCA,BACKS,BACON,BADDY,BADGE,BADLY,BAGEL,BAGGY,BAILS,BAIRN,BAITS,BAIZE,BAKED,BAKER,BAKES,BALDS,BALED,BALER,BALES,BALKS,BALKY,BALLS,BALMS,BALMY,BALSA,BANAL,BANDS,BANDY,BANES,BANGS,BANJO,BANKS,BARBS,BARDS,BARED,BARER,BARES,BARGE,BARKS,BARMY,BARNS,BARON,BASAL,BASED,BASER,BASES,BASIC,BASIL,BASIN,BASIS,BASKS,BASSI,BASSO,BASSY,BASTE,BATCH,BATED,BATES,BATHE,BATHS,BATIK,BATON,BATTY,BAULK,BAWDY,BAWLS,BAYED,BAYOU,BEACH,BEADS,BEADY,BEAKS,BEAMS,BEANS,BEARD,BEARS,BEAST,BEATS,BEAUS,BEAUT,BEAUX,BEBOP,BEDIM,BEECH,BEEFS,BEEFY,BEEPS,BEERS,BEERY,BEETS,BEFIT,BEFOG,BEGAT,BEGET,BEGIN,BEGOT,BEGUN,BEIGE,BEING,BELAY,BELCH,BELIE,BELLE,BELLS,BELLY,BELOW,BELTS,BENCH,BENDS,BENDY,BENNE,BENNI,BENNY,BENTO,BERET,BERGS,BERME,BERMS,BERRY,BERTH,BERYL,BESET,BESOM,BESOT,BESTS,BETEL,BEVEL,BEZEL,BIBLE,BICEP,BIDDY,BIDED,BIDES,BIDET,BIERS,BIGGY,BIGHT,BIGOT,BIJOU,BIKED,BIKER,BIKES,BILGE,BILGY,BILLS,BILLY,BIMBO,BINDS,BINGE,BINGO,BIOME,BIRCH,BIRDS,BIRTH,BISON,BITCH,BITER,BITES,BITTY,BLACK,BLADE,BLAME,BLAND,BLANK,BLARE,BLASE,BLAST,BLAZE,BLEAK,BLEAR,BLEAT,BLEED,BLEEP,BLEND,BLESS,BLIMP,BLIND,BLING,BLINK,BLIPS,BLISS,BLITZ,BLOAT,BLOCK,BLOCS,BLOGS,BLOND,BLOOD,BLOOM,BLOOP,BLOTS,BLOWN,BLOWS,BLUED,BLUES,BLUFF,BLUNT,BLURB,BLURS,BLURT,BLUSH,BOARD,BOARS,BOAST,BOATS,BOBBY,BOCCE,BOCCI,BODED,BODES,BOFFO,BOGEY,BOGGY,BOGIE,BOGUS,BOILS,BOLAS,BOLDS,BOLES,BOLLS,BOLTS,BOMBE,BOMBS,BONDS,BONED,BONER,BONES,BONEY,BONGO,BONGS,BONUS,BOOBS,BOOBY,BOOED,BOOKS,BOOMS,BOONS,BOORS,BOOST,BOOTH,BOOTS,BOOTY,BOOZE,BOOZY,BORAX,BORED,BORES,BORIC,BORNE,BOSOM,BOSSY,BOTCH,BOUGH,BOULE,BOUND,BOUTS,BOWED,BOWEL,BOWER,BOWLS,BOXED,BOXER,BOXES,BOYAR,BOYLA,BOZOS,BRACE,BRACT,BRADS,BRAES,BRAGS,BRAID,BRAIL,BRAIN,BRAKE,BRAND,BRANK,BRANS,BRASH,BRASS,BRATS,BRAVE,BRAVO,BRAWL,BRAWN,BRAYS,BRAZE,BREAD,BREAK,BREAM,BREDE,BREED,BRENS,BRENT,BREWS,BRIAR,BRIBE,BRICK,BRIDE,BRIEF,BRIER,BRIES,BRIGS,BRILL,BRINE,BRING,BRINK,BRINY,BRISK,BRITS,BROAD,BROCK,BROIL,BROKE,BROOD,BROOK,BROOM,BROTH,BROWN,BROWS,BRUIN,BRUIT,BRUME,BRUNT,BRUSH,BRUTE,BUCKS,BUDDY,BUDGE,BUFFS,BUGGY,BUGLE,BUILD,BUILT,BULBS,BULGE,BULGY,BULKS,BULKY,BULLS,BULLY,BUMPS,BUMPY,BUNCH,BUNCO,BUNDS,BUNDT,BUNGS,BUNKS,BUNNY,BUNTS,BUOYS,BURBS,BURGS,BURKA,BURLS,BURLY,BURNS,BURNT,BURRO,BURRS,BURST,BUSES,BUSHY,BUSTS,BUSTY,BUTCH,BUTTE,BUTTS,BUXOM,BUYER,BYLAW,BYRES,BYTES,CABAL,CABBY,CABER,CABLE,CABOB,CACAO,CACHE,CACTI,CADDY,CADET,CADGE,CADRE,CAFES,CAGED,CAGER,CAGES,CAGEY,CAINS,CAIRN,CAKED,CAKES,CALFS,CALIF,CALLS,CALMS,CALVE,CAMEL,CAMEO,CAMPS,CANAL,CANDY,CANED,CANER,CANES,CANID,CANNA,CANNY,CANOE,CANON,CANTO,CANTS,CAPED,CAPER,CAPES,CAPHS,CAPON,CAPOS,CARAT,CARDS,CARED,CARER,CARES,CARET,CARGO,CAROB,CAROL,CAROM,CARPI,CARRY,CARTE,CARTS,CARVE,CASED,CASES,CASKS,CASTE,CASTS,CATCH,CATER,CATTY,CAULK,CAULS,CAUSE,CAVED,CAVER,CAVES,CEASE,CECAL,CEDAR,CEDED,CEDER,CEDES,CELLA,CELLI,CELLO,CELLS,CENTS,CERES,CERIA,CERIC,CEROS,CHAFF,CHAIN,CHAIR,CHALK,CHAMP,CHANT,CHAOS,CHAPS,CHARM,CHARS,CHART,CHASE,CHASM,CHATS,CHEAP,CHEAT,CHECK,CHEEK,CHEEP,CHEER,CHEFS,CHERT,CHEST,CHEWS,CHEWY,CHICK,CHIDE,CHIEF,CHILD,CHILE,CHILI,CHILL,CHIME,CHIMP,CHINA,CHINE,CHINK,CHINO,CHINS,CHIPS,CHIRK,CHIRP,CHOIR,CHOKE,CHOMP,CHOPS,CHORD,CHORE,CHOSE,CHOWS,CHUBS,CHUCK,CHUFF,CHUMP,CHUMS,CHUNK,CHURL,CHURN,CHUTE,CIDER,CIGAR,CILIA,CINCH,CIRCA,CISCO,CISTS,CITED,CITER,CITES,CIVET,CIVIC,CIVIE,CIVIL,CLACK,CLADE,CLAIM,CLAMP,CLAMS,CLANG,CLANK,CLANS,CLAPS,CLASH,CLASP,CLASS,CLAWS,CLAYS,CLEAN,CLEAR,CLEAT,CLEFS,CLEFT,CLERK,CLEWS,CLICK,CLIFF,CLIMB,CLIME,CLING,CLINK,CLIPS,CLOAK,CLOCK,CLODS,CLOGS,CLOMP,CLONE,CLOSE,CLOTH,CLOTS,CLOUD,CLOUT,CLOVE,CLOWN,CLUBS,CLUCK,CLUED,CLUES,CLUMP,CLUNG,COACH,COALS,COAST,COATI,COATS,COBIA,COBRA,COCCI,COCKS,COCKY,COCOA,CODEC,CODED,CODER,CODES,CODEX,CODON,COEDS,COGON,COHOS,COIFS,COILS,COINS,COLAS,COLDS,COLES,COLIC,COLON,COLOR,COLTS,COMAS,COMBO,COMBS,COMER,COMES,COMET,COMFY,COMIC,COMMA,CONCH,CONDO,CONED,CONES,CONEY,CONGA,CONIC,CONKS,COOED,COOKS,COOLS,COONS,COOPS,COPAL,COPED,COPER,COPES,COPRA,COPSE,CORAL,CORDS,CORED,CORER,CORES,CORGI,CORKS,CORKY,CORNS,CORNY,CORPS,COSEC,COSTA,COSTS,COTTA,COUCH,COUGH,COULD,COUNT,COUPE,COURT,COUTH,COVEN,COVER,COVES,COVET,COVEY,COWED,COWER,COWLS,COYLY,CRABS,CRACK,CRAFT,CRAGS,CRAMP,CRAMS,CRANE,CRANK,CRAPE,CRAPS,CRASH,CRASS,CRATE,CRAVE,CRAWL,CRAWS,CRAZE,CRAZY,CREAK,CREAM,CREDO,CREED,CREEK,CREEP,CREME,CREPE,CREPT,CRESS,CREST,CREWS,CRIBS,CRICK,CRIED,CRIER,CRIES,CRIME,CRIMP,CRISP,CROAK,CROCK,CRONE,CRONY,CROOK,CROON,CROPS,CROSS,CROUP,CROWD,CROWN,CROWS,CRUDE,CRUEL,CRUET,CRUMB,CRUSE,CRUSH,CRUST,CRYPT,CUBED,CUBER,CUBES,CUBIC,CUBIT,CUFFS,CUIFS,CUING,CULLS,CULPA,CULTS,CUMIN,CUNTS,CUPID,CURBS,CURDS,CURED,CURER,CURES,CURIA,CURIE,CURLS,CURLY,CURRY,CURVE,CURVY,CUTER,CUTES,CUTIE,CUTIS,CUTUP,CYCAD,CYCLE,CYNIC,CYSTS,DACHA,DADDY,DAILY,DAIRY,DAISY,DALES,DALLY,DAMES,DAMNS,DAMPS,DANCE,DANDY,DARED,DARER,DARES,DARKS,DARNS,DARTS,DATED,DATER,DATES,DATUM,DAUBS,DAUNT,DAVIT,DAWNS,DAZED,DAZES,DEALS,DEALT,DEANS,DEARS,DEARY,DEBIT,DEBTS,DEBUG,DEBUT,DECAL,DECAY,DECKS,DECOR,DECOY,DECRY,DEEDS,DEEMS,DEEPS,DEERS,DEFER,DEIFY,DEIGN,DEISM,DEIST,DEITY,DELAY,DELED,DELES,DELFS,DELIS,DELLS,DELTA,DELVE,DEMON,DEMOS,DENIM,DENSE,DENTS,DEPOT,DEPTH,DERBY,DESKS,DHIKR,DIALS,DIARY,DICED,DICER,DICES,DICEY,DIGIT,DIKED,DIKER,DIKES,DILDO,DILLS,DILLY,DIMER,DIMES,DIMLY,DINAR,DINED,DINER,DINES,DINGO,DINGS,DINGY,DINKY,DINTS,DIOLS,DIRER,DIRGE,DIRTS,DIRTY,DISCO,DITCH,DITTO,DIVAN,DIVED,DIVER,DIVES,DIZZY,DOBRA,DODGY,DOGES,DOGGY,DOGIE,DOGMA,DOING,DOLCE,DOLED,DOLES,DOLLS,DOLLY,DOMED,DOMES,DONEE,DONGS,DONOR,DOOMS,DOORS,DOOZY,DOPED,DOPER,DOPES,DORKS,DORKY,DORMS,DORSA,DOSED,DOSER,DOSES,DOTED,DOTES,DOUBT,DOUGH,DOUSE,DOVES,DOWDY,DOWEL,DOWNS,DOWNY,DOWRY,DOZED,DOZEN,DOZES,DRAFT,DRAGS,DRAIN,DRAKE,DRAMA,DRAMS,DRANK,DRAPE,DRAWL,DRAWN,DRAWS,DREAD,DREAM,DRECK,DREGS,DRESS,DRIED,DRIER,DRIES,DRIFT,DRILL,DRILY,DRINK,DRIPS,DRIVE,DROIT,DROLL,DRONE,DROOL,DROOP,DROPS,DROSS,DROVE,DROWN,DRUGS,DRUID,DRUMS,DRUNK,DRYER,DRYLY,DUALS,DUCAL,DUCAT,DUCHY,DUCKS,DUCKY,DUCTS,DUDES,DUELS,DUETS,DUKES,DULLS,DULLY,DUMMY,DUMPS,DUMPY,DUNCE,DUNES,DUNKS,DUNNO,DUPED,DUPER,DUPES,DURAL,DURRA,DURUM,DUSKY,DUSTS,DUSTY,DUTCH,DUVET,DWARF,DWELL,DWELT,DYERS,DYING,EAGER,EAGLE,EARED,EARLS,EARLY,EARNS,EARTH,EASED,EASEL,EASER,EASES,EATEN,EATER,EAVED,EAVES,EBBED,EBBET,EBONS,EBONY,ECHOS,ECRUS,EDEMA,EDGED,EDGER,EDGES,EDICT,EDIFY,EDITS,EERIE,EGGED,EGRET,EIDER,EIGHT,EJECT,EKING,ELAND,ELBOW,ELDER,ELECT,ELEGY,ELFIN,ELIDE,ELITE,ELOPE,ELUDE,ELUTE,EMAIL,EMBED,EMBER,EMCEE,EMERY,EMITS,EMOTE,EMPTY,ENACT,ENDED,ENEMA,ENEMY,ENJOY,ENNUI,ENOKI,ENROL,ENSUE,ENTER,ENTRY,ENVOY,EPICS,EPOCH,EPOXY,EQUAL,EQUIP,ERASE,ERECT,ERGOT,ERODE,ERROR,ERUCT,ERUPT,ESSAY,ESTER,ETHER,ETHIC,ETHOS,ETUDE,EVADE,EVENT,EVERY,EVICT,EVILS,EVOKE,EXACT,EXALT,EXAMS,EXCEL,EXECS,EXERT,EXILE,EXIST,EXITS,EXPAT,EXPEL,EXTOL,EXTRA,EXUDE,EXULT,EYING,FABLE,FACED,FACER,FACES,FACET,FACTS,FADED,FADER,FADES,FAILS,FAINT,FAIRS,FAIRY,FAITH,FAKED,FAKER,FAKES,FALLS,FALSE,FAMED,FANCY,FANGS,FARAD,FARCE,FARED,FARER,FARES,FARMS,FARTS,FASTS,FATAL,FATED,FATES,FATTY,FAULT,FAUNA,FAVOR,FAWNS,FAXED,FAXES,FAZED,FAZES,FEARS,FEAST,FEATS,FECAL,FEELS,FEIGN,FEINT,FELLA,FELLS,FELON,FEMME,FEMUR,FENCE,FENDS,FERAL,FERMI,FERNS,FERRY,FETAL,FETCH,FETED,FETES,FETID,FETUS,FEUDS,FEVER,FEWER,FIBER,FIBRE,FIELD,FIEND,FIERY,FIFES,FIFTH,FIFTY,FIGHT,FILCH,FILED,FILER,FILES,FILET,FILLS,FILLY,FILMS,FILMY,FILTH,FINAL,FINCA,FINCH,FINDS,FINED,FINER,FINES,FINIS,FIORD,FIRED,FIRER,FIRES,FIRMS,FIRST,FIRTH,FISHY,FISTS,FITCH,FIVER,FIVES,FIXED,FIXER,FIXES,FIZZY,FJORD,FLACK,FLAGS,FLAIL,FLAIR,FLAKE,FLAKY,FLAME,FLANK,FLANS,FLAPS,FLARE,FLASH,FLASK,FLATS,FLAWS,FLEAS,FLECK,FLEES,FLEET,FLESH,FLICK,FLIER,FLIES,FLING,FLINT,FLIPS,FLIRT,FLOAT,FLOCK,FLOES,FLOGS,FLOOD,FLOOR,FLOPS,FLORA,FLOUR,FLOUT,FLOWN,FLOWS,FLUBS,FLUES,FLUFF,FLUID,FLUKE,FLUKY,FLUME,FLUNG,FLUNK,FLUSH,FLUTE,FOALS,FOAMS,FOAMY,FOCAL,FOCUS,FOGEY,FOGGY,FOILS,FOIST,FOLDS,FOLKS,FOLKY,FOLLY,FONDU,FONTS,FOODS,FOOLS,FOOTS,FORAY,FORCE,FORDS,FORES,FORGE,FORGO,FORKS,FORMS,FORTE,FORTH,FORTS,FORUM,FOUND,FOURS,FOWLS,FOXED,FOXES,FOYER,FRAIL,FRAME,FRANC,FRANK,FRAUD,FRAYS,FREAK,FREED,FREER,FREES,FRESH,FRIAR,FRIED,FRIER,FRIES,FRILL,FRISK,FRIZZ,FROCK,FROND,FRONS,FRONT,FROST,FROTH,FROWN,FROZE,FRUIT,FRYER,FUDGE,FUELS,FUGAL,FUGUE,FULLS,FULLY,FUMED,FUMES,FUMET,FUNDS,FUNGI,FUNKS,FUNNY,FURLS,FUROR,FURRY,FUSED,FUSEL,FUSES,FUSIL,FUZZY,GABLE,GAFFE,GAILY,GAINS,GAITS,GALAS,GALES,GALLS,GALLY,GAMER,GAMES,GAMMA,GAMUT,GANGS,GAOLS,GAPED,GAPES,GARBS,GASES,GASPS,GASSY,GATED,GATES,GAUDY,GAUGE,GAUNT,GAUSS,GAUZE,GAVEL,GAWKS,GAYLY,GAZED,GAZER,GAZES,GEARS,GECKO,GEEKS,GEEKY,GEESE,GELID,GENES,GENET,GENIE,GENII,GENOA,GENRE,GENTS,GENUS,GERMS,GETUP,GEYSER,GHAST,GHOST,GHOUL,GIANT,GIBED,GIBES,GIDDY,GIFTS,GILDS,GILLS,GILTS,GIMME,GIMPS,GIRDS,GIRLS,GIRLY,GIRTH,GIVEN,GIVER,GIVES,GLADE,GLADS,GLAND,GLANS,GLARE,GLASS,GLAZE,GLEAM,GLEAN,GLEBE,GLEES,GLENS,GLIDE,GLINT,GLOAM,GLOAT,GLOBE,GLOBS,GLOOM,GLORY,GLOSS,GLOVE,GLUED,GLUER,GLUES,GLUEY,GLYPH,GNARL,GNASH,GNATS,GNAWS,GNOME,GOADS,GOALS,GOATS,GODLY,GOERS,GOFER,GOING,GOLDS,GOLFS,GOLLY,GONAD,GONER,GONGS,GOODBY,GOODS,GOODY,GOOEY,GOONS,GOOSE,GORED,GORES,GORGE,GORSY,GOTHS,GOUGE,GOURD,GOWNS,GRABS,GRACE,GRADE,GRAFF,GRAFT,GRAIL,GRAIN,GRAMS,GRAND,GRANT,GRAPE,GRAPH,GRASP,GRASS,GRATE,GRAVE,GRAVY,GRAZE,GREAT,GREBE,GREED,GREEN,GREET,GRIDS,GRIEF,GRILL,GRIME,GRIMY,GRIND,GRINS,GRIPE,GRIPS,GRIST,GRITS,GROAN,GROAT,GROIN,GROOM,GROPE,GROSS,GROUP,GROUT,GROVE,GROWL,GROWN,GROWS,GRUBS,GRUEL,GRUES,GRUFF,GRUNT,GUANO,GUAVA,GUESS,GUEST,GUIDE,GUIDO,GUILD,GUILE,GUILT,GUISE,GULAG,GULCH,GULFS,GULLS,GULLY,GUMBO,GUMMY,GUNKS,GUNNY,GUPPY,GURUS,GUSTO,GUSTS,GUSTY,GUTSY,GUTTA,GYPSY,HABIT,HACKS,HADAL,HADST,HAIKU,HAILS,HAIRS,HAIRY,HALER,HALES,HALLS,HALMA,HALOS,HALTS,HALVE,HAMMY,HANDS,HANDY,HANGS,HANKS,HAPPY,HARDS,HARDY,HARED,HARES,HARKS,HARMS,HARPS,HARRY,HARSH,HARTS,HASTE,HASTY,HATCH,HATED,HATER,HATES,HAULS,HAUNT,HAVEN,HAVES,HAWED,HAWKS,HAZED,HAZEL,HAZER,HAZES,HEADS,HEADY,HEALS,HEAPS,HEARD,HEARS,HEART,HEATH,HEATS,HEAVE,HEAVY,HEDGE,HEEDS,HEELS,HEFTY,HEIRS,HELIO,HELIX,HELLO,HELMS,HELPS,HENCE,HENRY,HERBS,HERBY,HERDS,HEREIN,HERON,HERTZ,HESTS,HEWED,HEWER,HEXAD,HEXED,HEXER,HEXES,HICKS,HIDED,HIDER,HIDES,HIGHS,HIGHT,HIKED,HIKER,HIKES,HILAR,HILLS,HILLY,HILTS,HINDS,HINGE,HINTS,HIPPO,HIPPY,HIRED,HIRER,HIRES,HISSY,HITCH,HIVED,HIVES,HOARD,HOARY,HOBBY,HOCUS,HOGAN,HOIST,HOKUM,HOLDS,HOLED,HOLES,HOLEY,HOLLY,HOMED,HOMER,HOMES,HOMIE,HONED,HONER,HONES,HONEY,HONKS,HOODS,HOOFS,HOOKS,HOOKY,HOOPS,HOOTS,HOPED,HOPER,HOPES,HORDE,HORNS,HORNY,HORSE,HOSED,HOSES,HOSTS,HOTEL,HOUND,HOURS,HOUSE,HOVEL,HOVER,HOWDY,HOWLS,HUBBY,HUMAN,HUMID,HUMOR,HUMPH,HUMPS,HUMPY,HUMUS,HUNCH,HUNKS,HUNTS,HURLS,HURRY,HURTS,HUSKY,HYDRA,HYDRO,HYENA,HYMEN,HYMNS,HYPER,ICHOR,ICIER,ICILY,ICING,ICONS,IDEAL,IDEAS,IDIOM,IDIOT,IDLED,IDLER,IDLES,IDOLS,IDYLL,IGLOO,ILIAC,IMAGE,IMAGO,IMAMS,IMBUE,IMPEL,IMPLY,INANE,INAPT,INCUR,INDEX,INEPT,INERT,INFER,INFIX,INFRA,INGOT,INKED,INLAY,INLET,INNER,INPUT,INTER,INTRO,INURE,IONIC,IOTAS,IRATE,IRKED,IRONY,ISLET,ISSUE,ITCHY,ITEMS,IVIED,IVIES,IVORY,JACKS,JADED,JADES,JAILS,JAKES,JALAP,JAMBS,JAPED,JAPER,JAPES,JAUNT,JAWED,JAZZY,JEANS,JEEPS,JEERS,JELLY,JERKS,JERKY,JESTS,JETTY,JEWEL,JIFFY,JILTS,JIMMY,JOINS,JOINT,JOIST,JOKED,JOKER,JOKES,JOLLY,JOLTS,JOULE,JOUST,JOWLS,JUDGE,JUICE,JUICY,JUMBO,JUMPS,JUMPY,JUNKS,JUNKY,JUNTA,JUROR,KABOB,KALES,KAPUT,KARAT,KARMA,KAYAK,KAZOO,KEBAB,KEELS,KEENS,KEEPS,KELPS,KEMPT,KHAKI,KICKS,KIDDO,KILLS,KILNS,KILOS,KILTS,KINDA,KINDS,KINGS,KINKS,KINKY,KIOSK,KITED,KITER,KITES,KITHE,KITTY,KNEAD,KNEED,KNEEL,KNEES,KNELL,KNELT,KNIFE,KNISH,KNITS,KNOBS,KNOCK,KNOLL,KNOTS,KNOWN,KNOWS,KOALA,KOOKS,KUDOS,LABEL,LABIA,LABOR,LACED,LACER,LACES,LACKS,LADEN,LADLE,LAGER,LAIRD,LAIRS,LAITY,LAKES,LAMAS,LAMBS,LAMED,LAMER,LAMES,LAMPS,LANCE,LANDS,LANES,LANKY,LAPEL,LAPIN,LAPSE,LARCH,LARDS,LARGE,LARGO,LARKS,LARVA,LASER,LASSO,LASTS,LATCH,LATER,LATEX,LATHE,LATHS,LAVAS,LAWNS,LAXER,LAYER,LEACH,LEADS,LEAFS,LEAFY,LEAKS,LEAKY,LEANS,LEAPS,LEARN,LEASE,LEASH,LEAST,LEAVE,LEDGE,LEECH,LEERS,LEERY,LEFTS,LEGAL,LEGER,LEGGY,LEMME,LEMON,LEMUR,LENDS,LENSE,LEPER,LEVEE,LEVEL,LEVER,LEVIS,LIANA,LIARS,LIBEL,LIBRA,LICIT,LICKS,LIEGE,LIENS,LIFER,LIFTS,LIGHT,LIKED,LIKEN,LIKER,LIKES,LILAC,LIMBO,LIMBS,LIMED,LIMES,LIMIT,LIMOS,LIMPS,LINER,LINES,LINGO,LINKS,LIONS,LIPID,LISLE,LISTS,LITER,LITHE,LITRE,LIVED,LIVEN,LIVER,LIVES,LIVID,LLAMA,LOADS,LOAFS,LOAMS,LOAMY,LOANS,LOATH,LOBBY,LOBED,LOBES,LOCAL,LOCKS,LOCUM,LOCUS,LODES,LODGE,LOESS,LOFTS,LOFTY,LOGES,LOGIC,LOGIN,LOGOS,LOINS,LOLLS,LONER,LONGS,LOOKS,LOOMS,LOONS,LOONY,LOOPS,LOOPY,LOOSE,LOPED,LOPER,LOPES,LORDS,LORES,LORRY,LOSER,LOSES,LOTTO,LOTUS,LOUSE,LOUSY,LOVED,LOVER,LOVES,LOWER,LOWLY,LOXES,LOYAL,LUAUS,LUBED,LUBES,LUCID,LUCKS,LUCKY,LUGER,LULLS,LUMEN,LUMPS,LUMPY,LUNAR,LUNCH,LUNGE,LUNGS,LUPUS,LURCH,LURED,LURES,LURID,LUSTS,LUSTY,LUTES,LYING,LYMPH,LYRES,LYRIC,MACAW,MACED,MACER,MACES,MACHO,MACRO,MADAM,MADLY,MAFIA,MAGIC,MAGMA,MAIDS,MAILS,MAIMS,MAINS,MAIZE,MAJOR,MAKER,MAKES,MALES,MALLS,MALTS,MAMAS,MAMBO,MAMMA,MAMMY,MANED,MANES,MANGA,MANGE,MANGO,MANGY,MANIA,MANIC,MANNA,MANOR,MANSE,MAPLE,MARCH,MARES,MARGE,MARKS,MARRY,MARSH,MARTS,MASER,MASHY,MASKS,MASON,MASSA,MASSE,MASSY,MASTS,MATCH,MATED,MATER,MATES,MATEY,MATHS,MATTE,MATTY,MAULS,MAUVE,MAVEN,MAVIS,MAXED,MAXES,MAXIM,MAYBE,MAYOR,MAZES,MEALS,MEALY,MEANS,MEANT,MEATS,MEATY,MECCA,MEDAL,MEDIA,MEDIC,MELEE,MELON,MELTS,MEMOS,MENDS,MENUS,MEOWS,MERCY,MERGE,MERIT,MERRY,MESAS,MESIC,MESSY,METAL,METER,METES,METRE,METRO,MEWED,MEZZO,MIAOW,MICAS,MICKS,MICRO,MIDGE,MIDST,MIENS,MIFFS,MIFFY,MIGHT,MILES,MILKS,MILKY,MILLS,MIMES,MIMIC,MINCE,MINDS,MINED,MINER,MINES,MINIM,MINIS,MINOR,MINTS,MINUS,MIRED,MIRES,MIRTH,MISER,MISTS,MISTY,MITER,MITES,MITRE,MIXED,MIXER,MIXES,MOANS,MOATS,MOCHA,MOCKS,MODAL,MODEL,MODEM,MODES,MOGUL,MOIST,MOLAL,MOLAR,MOLDS,MOLDY,MOLES,MOLLS,MOLTS,MOMMA,MOMMY,MONAD,MONDO,MONEY,MONKS,MONTH,MOODS,MOODY,MOOED,MOONS,MOORS,MOOSE,MOPED,MOPER,MOPES,MORAL,MORAY,MORES,MORNS,MORON,MORPH,MOSSY,MOTEL,MOTET,MOTHS,MOTIF,MOTOR,MOTTO,MOULD,MOUND,MOUNT,MOURN,MOUSE,MOUSY,MOUTH,MOVED,MOVER,MOVES,MOVIE,MOWED,MOWER,MOXIE,MUCKS,MUCKY,MUCUS,MUDDY,MUFTI,MUGGY,MULCH,MULES,MULLS,MUMMY,MUMPS,MUNCH,MUNGO,MURAL,MURKY,MUSED,MUSES,MUSHY,MUSIC,MUSKS,MUSKY,MUSTS,MUSTY,MUTED,MUTES,MUZZY,MYRRH,NACHO,NAGGY,NAILS,NAIVE,NAKED,NAMED,NAMES,NANNY,NAPES,NAPPY,NARCO,NARKS,NASAL,NASTY,NATAL,NATCH,NAVEL,NAVES,NEARS,NEATH,NECKS,NEEDS,NEEDY,NEIGH,NERDS,NERDY,NERVE,NERVY,NESTS,NEVER,NEWEL,NEWER,NEWLY,NEWSY,NEWTS,NEXUS,NICER,NICHE,NICKS,NIECE,NIFTY,NIGHT,NINES,NINJA,NINNY,NINTH,NIPPY,NITER,NITRO,NIXED,NIXES,NOBLE,NOBLY,NODAL,NODDY,NODES,NOELS,NOISE,NOISY,NOMAD,NONCE,NOOKS,NOONS,NOOSE,NORTH,NOSED,NOSES,NOTCH,NOTED,NOTER,NOTES,NOUNS,NOVEL,NOWAY,NUDES,NUDIE,NUKED,NUKES,NULLS,NUMBS,NURSE,NUTTY,NYLON,OAKEN,OAKUM,OARED,OASES,OASIS,OATEN,OATHS,OBESE,OBEYS,OBITS,OBOES,OCCUR,OCEAN,OCHER,OCHRE,OCTAL,OCTET,ODDER,ODDLY,ODEON,ODIUM,ODORS,OFFAL,OFFED,OFFER,OFTEN,OGLED,OGLER,OGLES,OGRES,OILED,OILER,OINKS,OKAPI,OKAYS,OLDEN,OLDER,OLIVE,OMEGA,ONION,ONSET,OPALS,OPENS,OPERA,OPINE,OPIUM,OPTED,OPTIC,ORATE,ORBIT,ORDER,ORGAN,ORIEL,ORNATE,OTHER,OTTER,OUGHT,OUNCE,OUTDO,OUTED,OUTER,OUTGO,OVALS,OVARY,OVATE,OVENS,OVERS,OVERT,OVOID,OWING,OWNED,OWNER,OXBOW,OXIDE,OXIDS,OZONE,PACED,PACER,PACES,PACKS,PACTA,PADDY,PADRE,PAEAN,PAGAN,PAGED,PAGER,PAGES,PAILS,PAINS,PAINT,PAIRS,PALAS,PALED,PALER,PALES,PALLS,PALMS,PALSY,PANEL,PANES,PANGA,PANGS,PANIC,PANSY,PANTO,PANTS,PANTY,PAPAL,PAPAS,PAPAW,PAPER,PARAS,PARCH,PARED,PARER,PARES,PARKA,PARKS,PARRY,PARSE,PARTS,PARTY,PASEO,PASTA,PASTE,PASTS,PASTY,PATCH,PATED,PATES,PATHS,PATIO,PATSY,PATTY,PAUSE,PAVED,PAVER,PAVES,PAWED,PAWLS,PAYED,PAYER,PEACE,PEACH,PEAKS,PEALS,PEARL,PEARS,PEASE,PEATS,PEATY,PECAN,PECKS,PECKY,PEDAL,PEEKS,PEELS,PEENS,PEEPS,PEERS,PEEVE,PEKOE,PELTS,PENAL,PENCE,PENES,PENIS,PENNE,PENNY,PEONS,PEONY,PERCH,PERIL,PERKS,PERKY,PERMS,PERPS,PERRY,PESKY,PESTS,PETAL,PETER,PETIT,PETTY,PHASE,PHIAL,PHISH,PHONE,PHONY,PHOTO,PIANO,PICKS,PICKY,PIERS,PIETY,PIGGY,PIKES,PILED,PILES,PILLS,PILOT,PIMPS,PINCH,PINED,PINES,PINEY,PINGS,PINKS,PINKY,PINTO,PINTS,PIONS,PIOUS,PIPED,PIPER,PIPES,PIPIT,PIQUE,PITCH,PITHY,PIVOT,PIXEL,PIZZA,PLACE,PLAID,PLAIN,PLAIT,PLANE,PLANK,PLANS,PLANT,PLASH,PLATE,PLATS,PLAYA,PLAYS,PLAZA,PLEAD,PLEAS,PLEAT,PLEBE,PLENA,PLEON,PLEWS,PLIES,PLINK,PLODS,PLONK,PLOPS,PLOTS,PLOWS,PLOYS,PLUCK,PLUGS,PLUMB,PLUME,PLUMP,PLUMS,PLUNK,PLUSH,POACH,PODIA,POEMS,POETS,POINT,POISE,POKED,POKER,POKES,POLAR,POLED,POLES,POLIO,POLKA,POLLS,POOCH,POOLS,POOPS,POPPA,POPPY,PORCH,PORED,PORES,PORTS,POSED,POSER,POSES,POSIT,POSSE,POSTS,POTTY,POUCH,POULT,POUND,POURS,POUTS,POWER,PRAMS,PRANK,PRATE,PRAWN,PRAYS,PREEN,PREPS,PRESS,PRICE,PRICK,PRIDE,PRIED,PRIER,PRIES,PRIME,PRIMO,PRINT,PRIOR,PRISE,PRISM,PRIVY,PRIZE,PROBE,PRODS,PROFS,PROMO,PROOF,PROPS,PROSE,PROSY,PROUD,PROVE,PROWL,PROWS,PROXY,PRUDE,PRUNE,PSALM,PSHAW,PUBES,PUBIC,PUDGY,PUFFS,PUFFY,PULLS,PULPS,PULSE,PUMPS,PUNCH,PUNKS,PUNNY,PUPAL,PUPIL,PUPPY,PUREE,PURER,PURGE,PURLS,PURRS,PURSE,PUSHY,PUTTS,PUTTY,PYGMY,QUACK,QUAFF,QUAIL,QUAKE,QUALM,QUARK,QUART,QUASH,QUASI,QUEEN,QUEER,QUELL,QUERY,QUEST,QUEUE,QUICK,QUIET,QUILL,QUILT,QUINT,QUIPS,QUIRE,QUIRK,QUITE,QUITS,QUOIT,QUOTA,QUOTE,RABBI,RABID,RACED,RACER,RACES,RACKS,RADAR,RADII,RADIO,RADIX,RADON,RAFTS,RAGED,RAGES,RAIDS,RAILS,RAINS,RAINY,RAISE,RAJAH,RAKED,RAKES,RALLY,RALPH,RAMEN,RAMPS,RANCH,RANDS,RANGE,RANGY,RANIS,RANKS,RANTS,RAPED,RAPER,RAPES,RAPID,RARER,RASED,RASES,RASPS,RASPY,RATED,RATER,RATES,RATIO,RATTY,RAVED,RAVEL,RAVEN,RAVER,RAVES,RAYED,RAYON,RAZED,RAZES,RAZOR,REACH,REACT,READS,READY,REALM,REAMS,REAPS,REARM,REARS,REBEL,REBID,REBUS,REBUT,RECAP,RECTA,RECUR,REDID,REDO,REDOX,REEDS,REEDY,REEFS,REEFY,REEKS,REELS,REEVE,REFER,REFIT,REGAL,REHAB,REIFY,REIGN,REINS,RELAX,RELAY,RELIC,REMIT,RENAL,RENDS,RENEW,RENTS,REPAY,REPEL,REPLY,RERAN,RERUN,RESET,RESIN,RESIT,RESTS,RETCH,RETRO,RETRY,REUSE,REVEL,REVUE,RHINO,RHYME,RICED,RICER,RICES,RIDER,RIDES,RIDGE,RIFLE,RIFTS,RIGHT,RIGID,RIGOR,RILED,RILES,RILLS,RINDS,RINGS,RINKS,RINSE,RIOTS,RIPEN,RIPER,RISEN,RISER,RISES,RISKS,RISKY,RITES,RITZY,RIVAL,RIVED,RIVES,RIVET,ROACH,ROADS,ROAMS,ROARS,ROAST,ROBED,ROBES,ROBIN,ROBOT,ROCKS,ROCKY,RODEO,ROGER,ROGUE,ROILS,ROLES,ROLLS,ROMAN,ROMEO,ROMPS,ROODS,ROOFS,ROOKS,ROOMS,ROOMY,ROOST,ROOTS,ROPED,ROPER,ROPES,ROQUE,ROSES,ROTOR,ROUGH,ROUND,ROUSE,ROUTE,ROVER,ROVES,ROWAN,ROWED,ROWEL,ROWER,ROYAL,RUBES,RUBLE,RUDDY,RUDER,RUING,RULED,RULER,RULES,RUMBA,RUMEN,RUMMY,RUMOR,RUMPS,RUNES,RUNGS,RUNNY,RUNTS,RURAL,RUSES,RUSHY,RUSTS,RUSTY,RUTTY,SABER,SABLE,SABOT,SACKS,SADLY,SAFER,SAFES,SAGAS,SAGER,SAGES,SAHIB,SAILS,SAINT,SAKER,SALAD,SALES,SALLY,SALON,SALSA,SALTS,SALTY,SALVE,SALVO,SANDY,SAPID,SAPPY,SARAN,SAREE,SARGE,SARIS,SAROD,SASSY,SATED,SATES,SATIN,SATYR,SAUCE,SAUCY,SAUNA,SAUTE,SAVED,SAVER,SAVES,SAVOR,SAVOY,SAVVY,SAWED,SAYER,SCABS,SCADS,SCALD,SCALE,SCALP,SCALY,SCAMP,SCAMS,SCANS,SCANT,SCARE,SCARF,SCARS,SCARY,SCATS,SCENE,SCENT,SCHWA,SCION,SCOFF,SCOLD,SCONE,SCOOP,SCOOT,SCOPE,SCORE,SCORN,SCOUR,SCOUT,SCOWL,SCRAM,SCRAP,SCREE,SCREW,SCRIP,SCRUB,SCRUM,SCUBA,SCUDS,SCUFF,SCULL,SEALS,SEAMS,SEATS,SEBUM,SECTS,SEDAN,SEDER,SEDUM,SEEDS,SEEDY,SEEKS,SEEMS,SEEPS,SEERS,SEGUE,SEINE,SEISM,SEIZE,SELLS,SEMEN,SEMIS,SENDS,SENSE,SENTE,SENTI,SERAI,SERIF,SERIN,SERUM,SERVE,SETUP,SEVEN,SEVER,SEWED,SEWER,SEXED,SEXES,SHACK,SHADE,SHADY,SHAFT,SHAKE,SHAKY,SHALE,SHALL,SHAME,SHAMS,SHANK,SHAPE,SHARD,SHARE,SHARK,SHARP,SHAVE,SHAWL,SHEAF,SHEAR,SHEDS,SHEEN,SHEEP,SHEER,SHEET,SHEIK,SHELF,SHELL,SHIED,SHIES,SHIFT,SHILL,SHIMS,SHINE,SHINS,SHINY,SHIPS,SHIRE,SHIRK,SHIRT,SHITS,SHOCK,SHOED,SHOES,SHONE,SHOOK,SHOOT,SHOPS,SHORE,SHORT,SHOTS,SHOUT,SHOVE,SHOWN,SHOWS,SHOWY,SHRED,SHREW,SHRUB,SHRUG,SHUCK,SHUNS,SHUNT,SHUSH,SHYLY,SIBYL,SIDED,SIDES,SIDLE,SIEGE,SIEVE,SIGHS,SIGHT,SIGMA,SIGNS,SILKS,SILKY,SILLS,SILLY,SILOS,SILTS,SINCE,SINEW,SINGE,SINGS,SINKS,SINUS,SIRED,SIRES,SIREN,SISSY,SITAR,SITES,SIXES,SIXTH,SIXTY,SIZED,SIZER,SIZES,SKATE,SKEET,SKEIN,SKEWS,SKIDS,SKIED,SKIER,SKIES,SKIFF,SKILL,SKIMP,SKIMS,SKINS,SKINT,SKIPS,SKIRT,SKITS,SKULK,SKULL,SKUNK,SLABS,SLACK,SLAIN,SLAKE,SLAMS,SLANG,SLANT,SLAPS,SLASH,SLATE,SLATS,SLAVE,SLAWS,SLEDS,SLEEK,SLEEP,SLEET,SLEPT,SLICE,SLICK,SLIDE,SLIER,SLILY,SLIME,SLIMY,SLING,SLINK,SLIPS,SLOBS,SLOES,SLOGS,SLOOP,SLOPE,SLOPS,SLOSH,SLOTH,SLOTS,SLOWS,SLUED,SLUES,SLUGS,SLUMP,SLUMS,SLUNG,SLUNK,SLURP,SLURS,SLUSH,SLYLY,SMACK,SMALL,SMART,SMASH,SMEAR,SMELL,SMELT,SMILE,SMIRK,SMITE,SMITH,SMOCK,SMOKE,SMOKY,SMOTE,SNACK,SNAFU,SNAGS,SNAIL,SNAKE,SNAKY,SNAPS,SNARE,SNARL,SNEAK,SNEER,SNICK,SNIFF,SNIPE,SNIPS,SNORE,SNORT,SNOTS,SNOWS,SNOWY,SNUCK,SNUFF,SOAKS,SOAPS,SOAPY,SOARS,SOBER,SOCKS,SODAS,SOFAS,SOFTS,SOFTY,SOGGY,SOILS,SOLAR,SOLED,SOLES,SOLID,SOLOS,SOLVE,SONAR,SONGS,SONIC,SOOTS,SOOTY,SOPPY,SORRY,SORTS,SOUGH,SOULS,SOUND,SOUPS,SOUPY,SOUTH,SOWED,SOWER,SPACE,SPADE,SPANK,SPANS,SPARE,SPARK,SPARS,SPASM,SPATE,SPATS,SPAWN,SPEAK,SPEAR,SPECK,SPECS,SPEED,SPELL,SPELT,SPEND,SPENT,SPERM,SPEWS,SPICE,SPICY,SPIED,SPIEL,SPIES,SPIKE,SPIKY,SPILL,SPILT,SPINE,SPINS,SPINY,SPIRE,SPITE,SPLAT,SPLIT,SPOIL,SPOKE,SPOOF,SPOOK,SPOOL,SPOON,SPOOR,SPORE,SPORT,SPOTS,SPOUT,SPRAT,SPRAY,SPREE,SPRIG,SPUDS,SPUME,SPUNK,SPURN,SPURS,SPURT,SQUAB,SQUAD,SQUAT,SQUIB,STACK,STAFF,STAGE,STAID,STAIN,STAIR,STAKE,STALE,STALK,STALL,STAMP,STAND,STANK,STARE,STARK,STARS,START,STASH,STATE,STAVE,STAYS,STEAD,STEAK,STEAL,STEAM,STEED,STEEL,STEEP,STEER,STEMS,STENO,STEPS,STERN,STEWS,STICK,STIFF,STILL,STILT,STING,STINK,STINT,STOCK,STOIC,STOKE,STOLE,STOMP,STONE,STONY,STOOD,STOOL,STOOP,STOPS,STORE,STORK,STORM,STORY,STOUT,STOVE,STOWS,STRAP,STRAW,STRAY,STREP,STRIP,STROP,STRUM,STRUT,STUCK,STUDS,STUDY,STUFF,STUMP,STUNG,STUNK,STUNS,STUNT,STYLE,SUAVE,SUCKS,SUCRE,SUDSY,SUEDE,SUING,SUITE,SUITS,SULFA,SULKS,SULKY,SULLY,SUMAC,SUMPS,SUNNY,SUNUP,SUPER,SURER,SURGE,SURLY,SUSHI,SWABS,SWAGE,SWAIN,SWAMI,SWAMP,SWANK,SWANS,SWAPS,SWARM,SWASH,SWATH,SWEAR,SWEAT,SWEEP,SWEET,SWELL,SWEPT,SWIFT,SWIGS,SWIMS,SWINE,SWING,SWIPE,SWIRL,SWISH,SWOON,SWOOP,SWORD,SWORE,SWORN,SWUNG,SYNCH,SYNC,SYNCS,SYNOD,SYRUP,TABBY,TABLE,TABOO,TACIT,TACKS,TACKY,TACOS,TAFFY,TAIGA,TAILS,TAINT,TAKEN,TAKER,TAKES,TALES,TALKS,TALLY,TALON,TAMED,TAMER,TAMES,TANGO,TANGS,TANGY,TANKS,TANSY,TAPED,TAPER,TAPES,TAPIR,TARDY,TARES,TAROT,TARRY,TARTS,TASKS,TASTE,TASTY,TATTY,TAUNT,TAWNY,TAXED,TAXER,TAXES,TAXIS,TEACH,TEAKS,TEALS,TEAMS,TEARS,TEARY,TEASE,TEATS,TECHS,TEEMS,TEENS,TEENY,TEETH,TELEX,TELLS,TEMPI,TEMPO,TEMPS,TEMPT,TENCH,TENDS,TENET,TENON,TENSE,TENTS,TEPEE,TEPID,TERMS,TERNE,TERNS,TERRA,TERSE,TESTS,TESTY,TETRA,TEXAS,TEXTS,THANK,THEFT,THEIR,THEME,THERE,THERM,THESE,THETA,THICK,THIEF,THIGH,THING,THINK,THINS,THIRD,THONG,THORN,THOSE,THREE,THREW,THROB,THROW,THRUM,THUDS,THUGS,THUMB,THUMP,THYME,TIARA,TIBIA,TIDAL,TIDED,TIDES,TIGER,TIGHT,TILDE,TILED,TILER,TILES,TILLS,TILTH,TIMED,TIMER,TIMES,TIMID,TINES,TINGE,TINGS,TINNY,TINTS,TIPSY,TIRED,TIRES,TITAN,TITHE,TITTY,TOADS,TOAST,TODAY,TODDY,TOFFS,TOGAS,TOILS,TOKED,TOKEN,TOKES,TOLLS,TOMBS,TONAL,TONED,TONER,TONES,TONGS,TONIC,TOOLS,TOONS,TOOTH,TOOTS,TOPAZ,TOPED,TOPER,TOPES,TOPIC,TOQUE,TORCH,TORSI,TORSO,TORTS,TORUS,TOTAL,TOTED,TOTEM,TOTES,TOUCH,TOUGH,TOURS,TOUTS,TOWED,TOWEL,TOWER,TOWNS,TOXIC,TRACE,TRACK,TRACT,TRADE,TRAIL,TRAIN,TRAIT,TRAMP,TRAMS,TRASH,TRAWL,TRAYS,TREAD,TREAT,TREED,TREES,TREKS,TREND,TRESS,TRIAD,TRIAL,TRIBE,TRICE,TRICK,TRIED,TRIER,TRIES,TRILL,TRIMS,TRIPE,TRIPS,TRITE,TROLL,TROOP,TROPE,TROTS,TROUT,TROVE,TRUCE,TRUCK,TRUED,TRUER,TRUES,TRULY,TRUMP,TRUNK,TRUSS,TRUST,TRUTH,TRYST,TUBAL,TUBAS,TUBBY,TUBED,TUBER,TUBES,TULIP,TULLE,TUMID,TUMMY,TUMOR,TUNAS,TUNED,TUNER,TUNES,TURBO,TURFS,TURNS,TURPS,TUSKS,TUTOR,TUTTI,TWAIN,TWANG,TWEED,TWEET,TWICE,TWIGS,TWILL,TWINE,TWINS,TWIRL,TWIST,TWIXT,TYING,UDDER,ULCER,ULNAE,ULNAR,ULNAS,ULTRA,UMBEL,UMBER,UMPED,UNARM,UNARY,UNBAN,UNCLE,UNCUT,UNDER,UNDID,UNDUE,UNFED,UNFIT,UNIFY,UNION,UNITE,UNITS,UNITY,UNLIT,UNMAN,UNMET,UNPIN,UNSAY,UNSET,UNTIE,UNTIL,UNWED,UNZIP,UPPED,UPPER,UPSET,URBAN,URGED,URGER,URGES,URINE,USAGE,USHER,USING,USUAL,USURP,UTERI,UTTER,VAGUE,VALET,VALID,VALUE,VALVE,VAMPS,VAPID,VAPOR,VAULT,VEALS,VEERS,VEGAN,VEILS,VEINS,VELDT,VENAL,VENDS,VENOM,VENTS,VENUE,VERBS,VERGE,VERSE,VERST,VERTS,VERVE,VESTS,VEXED,VEXES,VIALS,VIAND,VIBES,VICAR,VIDEO,VIEWS,VIGIL,VIGOR,VILLA,VINES,VIOLA,VIPER,VIRAL,VIRES,VIRUS,VISAS,VISED,VISES,VISIT,VISTA,VITAE,VITAL,VIVID,VIXEN,VIZOR,VOCAL,VODKA,VOGUE,VOICE,VOIDS,VOILA,VOLES,VOLTS,VOMIT,VOTED,VOTER,VOTES,VOUCH,VOWED,VOWEL,VOWER,VYING,WACKO,WACKY,WADER,WADES,WADIS,WAFER,WAFTS,WAGED,WAGER,WAGES,WAGON,WAILS,WAINS,WAIST,WAITS,WAIVE,WAKED,WAKEN,WAKES,WALED,WALES,WALKS,WALLS,WALTZ,WANDS,WANED,WANES,WANLY,WANTS,WARDS,WARES,WARMS,WARNS,WARPS,WARTS,WARTY,WASHY,WASTE,WATCH,WATER,WATTS,WAVED,WAVER,WAVES,WAXED,WAXEN,WAXER,WAXES,WEALS,WEANS,WEARS,WEARY,WEAVE,WEBBY,WEDGE,WEEDS,WEEDY,WEEKS,WEENS,WEEPS,WEEPY,WEIRD,WELDS,WELLS,WELSH,WENCH,WENDS,WETLY,WHACK,WHALE,WHAMS,WHARF,WHEAT,WHEEL,WHELK,WHELP,WHERE,WHICH,WHIFF,WHILE,WHIMS,WHINE,WHIPS,WHIRL,WHIRR,WHISK,WHITE,WHOLE,WHOOP,WHOSE,WIDTH,WIELD,WIGHT,WIKIS,WILDS,WILED,WILES,WILLS,WILTS,WIMPS,WIMPY,WINCE,WINCH,WINDS,WINDY,WINED,WINER,WINES,WINGS,WINKS,WINOS,WIPED,WIPER,WIPES,WIRED,WIRES,WISER,WISPS,WISPY,WITCH,WIVES,WOMAN,WOMBS,WOMEN,WONKS,WOODS,WOODY,WOOED,WOOER,WOOFS,WOOLY,WOOZY,WORDS,WORKS,WORLD,WORMS,WORMY,WORRY,WORSE,WORST,WORTH,WOULD,WOUND,WOVEN,WRACK,WRAPS,WRATH,WREAK,WRECK,WRENS,WREST,WRING,WRIST,WRITE,WRITS,WRONG,WROTE,WRUNG,WRYLY,XENON,XERIC,XEROS,XYLEM,YACHT,YAHOO,YANKS,YARDS,YARNS,YAWED,YAWLS,YAWNS,YEAHS,YEARN,YEARS,YEAST,YELLS,YELPS,YESES,YIELD,YODEL,YOKED,YOKEL,YOKES,YOLKS,YOUNG,YOURS,YOUTH,YOWLS,YUCCA,ZAPPY,ZEBRA,ZESTS,ZESTY,ZILCH,ZINGS,ZIPPY,ZONAL,ZONED,ZONES,ZOOMS,SALET,ROATE,SOARE,OUIJA,SLARE".split(','));
+
+  function isDictionaryWord(word) {
+    return VALID_WORDS.has(word);
+  }
+
+  function applyGuessToRow(row, guess) {
+    const result = scoreGuess(guess, row.word);
+    row.history.push({ guess, result });
+    [...guess].forEach((letter, index) => {
+      const nextStatus = result[index];
+      const currentStatus = row.keyboard[letter];
+      if (!currentStatus || STATUS_RANK[nextStatus] > STATUS_RANK[currentStatus]) row.keyboard[letter] = nextStatus;
+      delete row.flags[letter];
+    });
+    const solvedNow = guess === row.word;
+    if (solvedNow) row.solved = true;
+    return solvedNow;
+  }
+
+  function submitGuess() {
+    if (!game || game.mode !== 'input') return;
+    const guess = els.guessInput.value.trim().toUpperCase();
+    if (!/^[A-Z]{5}$/.test(guess)) { showToast('英字5文字を入力してください'); return; }
+
+    if (!isDictionaryWord(guess)) { showToast('辞書にない単語です'); return; }
+
+    const unsolvedRows = game.rows.filter((row) => !row.solved);
+    if (!unsolvedRows.length) return;
+    let solvedThisMove = 0;
+    unsolvedRows.forEach((row) => { if (applyGuessToRow(row, guess)) solvedThisMove += 1; });
+    game.moves += 1;
+
+    const activeRow = game.rows[game.activeRow];
+    if (activeRow.solved) {
+      const nextUnsolved = game.rows.findIndex((candidate) => !candidate.solved);
+      if (nextUnsolved >= 0) game.activeRow = nextUnsolved;
+    }
+
+    renderAll();
+    if (game.rows.every((candidate) => candidate.solved)) { finishPuzzle(); return; }
+    if (solvedThisMove) showToast(solvedThisMove === 1 ? '1列復元！' : `${solvedThisMove}列を同時復元！`);
+    else showToast(`未クリア${unsolvedRows.length}列を1手で探索`);
+    requestAnimationFrame(() => els.guessInput.focus());
+  }
+
+  function finishPuzzle() {
+    const previousBest = Number(localStorage.getItem('rewordle-global-best-v1') || 0);
+    const isBest = previousBest === 0 || game.moves < previousBest;
+    if (isBest) localStorage.setItem('rewordle-global-best-v1', String(game.moves));
+
+    renderStats();
+    els.completeMoves.textContent = String(game.moves);
+    els.completeMessage.textContent = isBest ? '自己ベスト更新！' : 'コンピュータの解答履歴を完全に復元しました。';
+    window.setTimeout(() => { els.completeOverlay.hidden = false; }, 250);
+  }
+
+  function toEmoji(status) {
+    if (status === 'green') return '🟩';
+    if (status === 'yellow') return '🟨';
+    return '⬛';
+  }
+
+  function showToast(message) {
+    els.toast.textContent = message;
+    els.toast.classList.add('show');
+    window.clearTimeout(toastTimer);
+    toastTimer = window.setTimeout(() => els.toast.classList.remove('show'), 1400);
+  }
+
+  function bindEvents() {
+    els.guessForm.addEventListener('submit', (event) => {
+      event.preventDefault();
+      submitGuess();
+    });
+
+    els.guessInput.addEventListener('input', () => {
+      els.guessInput.value = els.guessInput.value.toUpperCase().replace(/[^A-Z]/g, '').slice(0, 5);
+    });
+
+    els.inputModeButton.addEventListener('click', () => setMode('input'));
+    els.flagModeButton.addEventListener('click', () => setMode('flag'));
+    els.newPuzzleButton.addEventListener('click', startRandomPuzzle);
+    els.nextPuzzleButton.addEventListener('click', startRandomPuzzle);
+    els.helpButton.addEventListener('click', () => els.helpDialog.showModal());
+    els.closeHelpButton.addEventListener('click', () => els.helpDialog.close());
+  }
+
+  function init() {
+    cacheElements();
+    bindEvents();
+    startRandomPuzzle();
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', init, { once: true });
+  } else {
+    init();
+  }
+})();
+</script>
+</body>
+</html>
