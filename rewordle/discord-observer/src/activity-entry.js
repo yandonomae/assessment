@@ -16,9 +16,8 @@ const CPU_PRESETS = [
   { answer: 'STONE', guesses: ['CRAMP','SHINE','STORE','STOKE','STONE'] }
 ];
 
-// The core game server stays isolated on an internal port. This public entry point
-// normalizes Discord Activity proxy paths and keeps a lightweight mirror for the
-// live opponent-status panel. Game truth still lives in activity-server.js.
+// Keep the core game server isolated on an internal port. This public entry point
+// only normalizes Discord proxy paths and adds the lightweight Round 2 exclusion hint.
 process.env.PORT = String(backendPort);
 await import('./activity-server.js');
 
@@ -37,11 +36,9 @@ function roomMirror(instanceId) {
   if (!mirrors.has(instanceId)) {
     mirrors.set(instanceId, {
       instanceId,
-      phase: 'lobby',
       answer: null,
       players: new Map(),
       publicPlayers: [],
-      presence: new Map(),
       updatedAt: Date.now()
     });
   }
@@ -72,105 +69,61 @@ function scoreGuess(guess, answer) {
   return result;
 }
 
-function cpuDetail(answer, publicPlayer) {
+function cpuDetail(answer) {
   const preset = presetForAnswer(answer);
-  const guesses = preset
-    ? preset.guesses.slice(0, 6).map((word) => ({ word, pattern: scoreGuess(word, preset.answer) }))
-    : [];
+  if (!preset) return null;
   return {
     id: 'cpu',
-    name: publicPlayer?.name || 'RE:BOT',
-    avatar: publicPlayer?.avatar || null,
-    cpu: true,
-    round1: { guesses, done: true, won: Boolean(preset) },
-    round2: { target: null, attempts: null, done: true, rows: [] }
+    round1: {
+      guesses: preset.guesses.slice(0, 6).map((word) => ({
+        word,
+        pattern: scoreGuess(word, preset.answer)
+      }))
+    }
   };
 }
 
 function updateMirror(payload) {
   if (!payload?.instanceId || !payload?.me?.id) return null;
   const mirror = roomMirror(payload.instanceId);
-  mirror.phase = payload.phase || mirror.phase;
   mirror.answer = payload.answer || mirror.answer;
   mirror.publicPlayers = Array.isArray(payload.players) ? payload.players : mirror.publicPlayers;
   mirror.updatedAt = Date.now();
 
-  const publicSelf = mirror.publicPlayers.find((p) => p.id === payload.me.id) || {};
   mirror.players.set(payload.me.id, {
-    ...publicSelf,
     id: payload.me.id,
-    name: payload.me.name || publicSelf.name || 'Player',
-    avatar: payload.me.avatar ?? publicSelf.avatar ?? null,
-    cpu: Boolean(publicSelf.cpu),
-    round1: payload.me.round1,
-    round2: payload.me.round2 || null
+    round1: payload.me.round1
   });
 
-  const cpu = mirror.publicPlayers.find((p) => p.cpu || p.id === 'cpu');
-  if (cpu && mirror.answer) mirror.players.set(cpu.id, cpuDetail(mirror.answer, cpu));
+  if (mirror.answer && mirror.publicPlayers.some((p) => p.cpu || p.id === 'cpu')) {
+    const cpu = cpuDetail(mirror.answer);
+    if (cpu) mirror.players.set('cpu', cpu);
+  }
+
   return mirror;
 }
 
 function targetWords(mirror, targetId) {
-  const target = mirror?.players.get(targetId);
-  const guesses = target?.round1?.guesses;
+  const guesses = mirror?.players.get(targetId)?.round1?.guesses;
   if (!Array.isArray(guesses)) return [];
-  return guesses.map((guess) => guess?.word).filter((word) => /^[A-Z]{5}$/.test(String(word || '')));
+  return guesses
+    .map((guess) => String(guess?.word || '').toUpperCase())
+    .filter((word) => /^[A-Z]{5}$/.test(word));
 }
 
 function unusedLetters(words) {
   if (!words.length) return [];
-  const used = new Set(words.join('').toUpperCase());
+  const used = new Set(words.join(''));
   return [...ALPHABET].filter((letter) => !used.has(letter));
-}
-
-function sanitizedPresence(body) {
-  const flagsByRow = {};
-  if (body?.flagsByRow && typeof body.flagsByRow === 'object') {
-    for (const [row, flags] of Object.entries(body.flagsByRow)) {
-      if (!/^\d+$/.test(row) || !flags || typeof flags !== 'object') continue;
-      const clean = {};
-      for (const [letter, status] of Object.entries(flags)) {
-        const upper = String(letter).toUpperCase();
-        if (/^[A-Z]$/.test(upper) && ['y', 'g', 'x'].includes(status)) clean[upper] = status;
-      }
-      flagsByRow[row] = clean;
-    }
-  }
-  return {
-    input: String(body?.input || '').toUpperCase().replace(/[^A-Z]/g, '').slice(0, 5),
-    activeRow: Math.max(0, Math.min(5, Number(body?.activeRow) || 0)),
-    mode: body?.mode === 'flag' ? 'flag' : 'input',
-    flagsByRow,
-    updatedAt: Date.now()
-  };
-}
-
-function livePlayers(mirror) {
-  return (mirror.publicPlayers || []).map((publicPlayer) => {
-    const detail = mirror.players.get(publicPlayer.id) || {
-      ...publicPlayer,
-      round1: { guesses: [], done: publicPlayer.round1?.done || false, won: publicPlayer.round1?.won ?? null },
-      round2: null
-    };
-    return {
-      ...detail,
-      phase: mirror.phase,
-      presence: mirror.presence.get(publicPlayer.id) || null,
-      synced: mirror.players.has(publicPlayer.id)
-    };
-  });
 }
 
 function enrichPayload(payload) {
   const mirror = updateMirror(payload);
   if (!mirror) return payload;
-
-  if (payload.me?.round2?.target?.id) {
-    const words = targetWords(mirror, payload.me.round2.target.id);
-    payload.me.round2.globalAbsentLetters = unusedLetters(words);
+  const targetId = payload.me?.round2?.target?.id;
+  if (targetId) {
+    payload.me.round2.globalAbsentLetters = unusedLetters(targetWords(mirror, targetId));
   }
-  payload.livePlayers = livePlayers(mirror);
   return payload;
 }
 
@@ -202,23 +155,15 @@ const proxy = http.createServer(async (req, res) => {
   try {
     const incoming = req.url || '/';
     const mappedPath = normalizePath(incoming);
-    const mappedUrl = new URL(mappedPath, 'http://activity.local');
     const requestBody = ['POST', 'PUT', 'PATCH'].includes(req.method || '') ? await readBody(req) : Buffer.alloc(0);
     console.log(`[activity-proxy] -> ${req.method} ${incoming} host=${req.headers.host || '-'} mapped=${mappedPath}`);
 
-    if (req.method === 'POST' && mappedUrl.pathname === '/api/activity/presence') {
-      let body = {};
-      try { body = JSON.parse(requestBody.toString('utf8') || '{}'); } catch {}
-      if (body.instanceId && body.playerId) {
-        const mirror = roomMirror(String(body.instanceId));
-        mirror.presence.set(String(body.playerId), sanitizedPresence(body));
-        mirror.updatedAt = Date.now();
-      }
-      sendJson(res, 200, { ok: true });
-      return;
-    }
-
-    const headers = { ...req.headers, host: `127.0.0.1:${backendPort}`, 'x-forwarded-host': req.headers.host || '', 'x-forwarded-proto': 'https' };
+    const headers = {
+      ...req.headers,
+      host: `127.0.0.1:${backendPort}`,
+      'x-forwarded-host': req.headers.host || '',
+      'x-forwarded-proto': 'https'
+    };
     if (requestBody.length) headers['content-length'] = requestBody.length;
 
     const upstream = http.request({
@@ -240,7 +185,6 @@ const proxy = http.createServer(async (req, res) => {
             const payload = JSON.parse(body.toString('utf8'));
             if (payload?.instanceId && payload?.me) {
               body = Buffer.from(JSON.stringify(enrichPayload(payload)), 'utf8');
-              delete responseHeaders['content-length'];
               responseHeaders['content-length'] = body.length;
               responseHeaders['cache-control'] = 'no-store';
             }
@@ -267,7 +211,7 @@ const proxy = http.createServer(async (req, res) => {
 });
 
 proxy.listen(publicPort, '0.0.0.0', () => {
-  console.log(`[activity-proxy] listening on ${publicPort}; backend=${backendPort}; live-spectator=on`);
+  console.log(`[activity-proxy] listening on ${publicPort}; backend=${backendPort}; round2-exclusions=on`);
 });
 
 setInterval(() => {
